@@ -1,6 +1,12 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+}
+
+// Epoxy
+kapt {
+    correctErrorTypes = true
 }
 
 android {
@@ -43,6 +49,7 @@ dependencies {
     val retrofitVersion = "2.9.0"
     val viewModelVersion = "2.6.2"
     val coroutinesVersion = "1.7.3"
+    val epoxyVersion = "4.4.1"
 
     //Basic dependencies
     implementation("androidx.core:core-ktx:1.12.0")
@@ -69,6 +76,10 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+
+    // Epoxy
+    implementation("com.airbnb.android:epoxy:$epoxyVersion")
+    kapt("com.airbnb.android:epoxy-processor:$epoxyVersion")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

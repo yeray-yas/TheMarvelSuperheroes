@@ -6,4 +6,11 @@
     </style>
 
     <style name="Theme.MarvelSuperheroes" parent="Base.Theme.MarvelSuperheroes" />
+
+    <style name="ShapeAppearanceOverlay.Marvel" parent="">
+        <item name="cornerSize">10%</item>
+        <item name="cornerFamily">cut</item>
+        <!--        <item name="cornerSizeTopLeft">35%</item>-->
+        <!--        <item name="cornerSizeBottomRight">35%</item>-->
+    </style>
 </resources>
