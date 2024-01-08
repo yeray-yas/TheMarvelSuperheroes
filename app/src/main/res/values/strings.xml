@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MarvelSuperheroes</string>
+    <string name="error_text">Error</string>
+    <string name="nothing">nothing</string>
+</resources>
