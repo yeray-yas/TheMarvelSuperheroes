@@ -8,13 +8,15 @@ class SharedRepository {
     suspend fun getCharacterById(characterId: Int): GetCharacterByIdResponse? {
         val request = NetworkLayer.apiClient.getCharacterById(characterId)
 
-        return if (request.isSuccessful) {
-            request.body()
-        } else {
-            // Manejar el caso en que la solicitud no sea exitosa, por ejemplo, log o mostrar un mensaje de error
-            // Logging: Log.e("SharedRepository", "Error en la solicitud: ${request.code()}")
-            // Mostrar mensaje de error: Toast.makeText(App.instance, "Error en la solicitud: ${request.code()}", Toast.LENGTH_SHORT).show()
-            null
+        if (request.failed){
+            return null
         }
+
+        if (!request.isSuccessful){
+            return null
+        }
+
+        // request is Successful
+     return request.body
     }
 }
