@@ -1,4 +1,4 @@
-package com.yeray_yas.marvelsuperheroes.presentation.superheroes.list
+package com.yeray_yas.marvelsuperheroes.presentation.ui
 
 import android.os.Bundle
 import android.widget.Toast
@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.yeray_yas.marvelsuperheroes.databinding.ActivityMainBinding
 import com.yeray_yas.marvelsuperheroes.presentation.superheroes.detail.CharacterDetailsEpoxyController
+import com.yeray_yas.marvelsuperheroes.presentation.superheroes.list.SharedViewModel
 
 class MainActivity : AppCompatActivity() {
 
