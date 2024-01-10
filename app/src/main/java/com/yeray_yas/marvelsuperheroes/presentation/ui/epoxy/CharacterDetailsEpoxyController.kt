@@ -8,7 +8,7 @@ import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterDetailsDataPoin
 import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterDetailsHeaderBinding
 import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterDetailsImageBinding
 
-class CharacterDetailsEpoxyController: EpoxyController() {
+class CharacterDetailsEpoxyController : EpoxyController() {
 
     private var isLoading: Boolean = true
         set(value) {
@@ -26,31 +26,40 @@ class CharacterDetailsEpoxyController: EpoxyController() {
                 requestModelBuild()
             }
         }
+
     override fun buildModels() {
-        if (isLoading){
+        if (isLoading) {
             LoadingEpoxyModel().id("loading").addTo(this)
             return
         }
 
-        if (characterResponse == null){
-            // todo error state
+        if (characterResponse == null) {
+            // TODO: Manejar el estado de error adecuadamente
             return
         }
 
+        val characterResult = characterResponse!!.data.results.getOrNull(0)
+
+        val name = characterResult?.name.orEmpty()
+        val image = characterResult?.thumbnail?.run {
+            "$path.$extension"
+        } ?: ""
+        val description = characterResult?.description.orEmpty()
+
         HeaderEpoxyModel(
-            name = characterResponse?.data?.results?.getOrNull(0)?.name.orEmpty()
+            name = name
         ).id("header").addTo(this)
+
         ImageEpoxyModel(
-            imageUrl = characterResponse?.data?.results?.get(0)?.thumbnail?.run {
-                "$path.$extension"
-            } ?: "" ).id("image").addTo(this)
-        // Data point models
+            imageUrl = image
+        ).id("image").addTo(this)
+
         DataPointEpoxyModel(
             title = "Description",
-            description = characterResponse?.data?.results?.getOrNull(0)?.description.orEmpty()
+            description = description
         ).id("data_point_1").addTo(this)
-
     }
+
 
     data class HeaderEpoxyModel(
         val name: String
