@@ -6,10 +6,12 @@ import com.squareup.picasso.Picasso
 import com.yeray_yas.marvelsuperheroes.R
 import com.yeray_yas.marvelsuperheroes.data.model.GetCharacterByIdResponse
 import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterListItemBinding
+import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterListTitleBinding
+import java.util.Locale
 
 class CharacterListPagingEpoxyController(
     //private val onCharacterSelected: (Int) -> Unit
-): PagedListEpoxyController<GetCharacterByIdResponse>() {
+) : PagedListEpoxyController<GetCharacterByIdResponse>() {
     override fun buildItemModel(
         currentPosition: Int,
         item: GetCharacterByIdResponse?
@@ -17,16 +19,57 @@ class CharacterListPagingEpoxyController(
         val image = item?.data?.results?.get(0)?.thumbnail?.run {
             "$path.$extension".takeIf { it.isNotBlank() }
         } ?: ""
-        return CharacterGridItemEpoxyModel(image, item?.data?.results?.get(0)?.name.orEmpty()).id(item!!.data.results[0].id)
+        return CharacterGridItemEpoxyModel(image, item?.data?.results?.get(0)?.name.orEmpty()).id(
+            item!!.data.results[0].id
+        )
     }
 
+    override fun addModels(models: List<EpoxyModel<*>>) {
+        if (models.isEmpty()) {
+            LoadingEpoxyModel().id("loading").addTo(this)
+            return
+        }
+
+        CharacterGridTitleEpoxyModel("3D-Man")
+            .id("main_family_header")
+            .addTo(this)
+
+        super.addModels(models.subList(0, 1))
+
+        (models.subList(1, models.size) as List<CharacterGridItemEpoxyModel>).groupBy {
+            it.name[0].uppercaseChar()
+        }.forEach { mapEntry ->
+            val character = mapEntry.key.toString().uppercase(Locale.US)
+            CharacterGridTitleEpoxyModel(title = character)
+                .id(character)
+                .addTo(this)
+
+            super.addModels(mapEntry.value)
+        }
+    }
+
+
+    // Data classes
     data class CharacterGridItemEpoxyModel(
         val imageUrl: String,
         val name: String
-    ): ViewBindingKotlinModel<ModelCharacterListItemBinding>(R.layout.model_character_list_item) {
+    ) : ViewBindingKotlinModel<ModelCharacterListItemBinding>(R.layout.model_character_list_item) {
         override fun ModelCharacterListItemBinding.bind() {
             Picasso.get().load(imageUrl).into(characterImageView)
             characterNameTextView.text = name
+        }
+    }
+
+    data class CharacterGridTitleEpoxyModel(
+        val title: String
+    ) : ViewBindingKotlinModel<ModelCharacterListTitleBinding>(R.layout.model_character_list_title) {
+
+        override fun ModelCharacterListTitleBinding.bind() {
+            textView.text = title
+        }
+
+        override fun getSpanSize(totalSpanCount: Int, position: Int, itemCount: Int): Int {
+            return totalSpanCount
         }
     }
 }
