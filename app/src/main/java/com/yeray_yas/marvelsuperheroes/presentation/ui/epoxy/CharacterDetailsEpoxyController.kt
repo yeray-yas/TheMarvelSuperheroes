@@ -3,10 +3,10 @@ package com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy
 import com.airbnb.epoxy.EpoxyController
 import com.squareup.picasso.Picasso
 import com.yeray_yas.marvelsuperheroes.R
-import com.yeray_yas.marvelsuperheroes.data.model.GetCharacterByIdResponse
 import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterDetailsDataPointBinding
 import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterDetailsHeaderBinding
 import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterDetailsImageBinding
+import com.yeray_yas.marvelsuperheroes.domain.model.Character
 
 class CharacterDetailsEpoxyController : EpoxyController() {
 
@@ -18,7 +18,7 @@ class CharacterDetailsEpoxyController : EpoxyController() {
             }
         }
 
-    var characterResponse: GetCharacterByIdResponse? = null
+    var character: Character? = null
         set(value) {
             field = value
             if (field != null) {
@@ -33,12 +33,12 @@ class CharacterDetailsEpoxyController : EpoxyController() {
             return
         }
 
-        if (characterResponse == null) {
+        if (character == null) {
             // TODO: Manejar el estado de error adecuadamente
             return
         }
 
-        val characterResult = characterResponse!!.data.results.getOrNull(0)
+        val characterResult = character!!.data.results.getOrNull(0)
 
         val name = characterResult?.name.orEmpty()
         val image = characterResult?.thumbnail?.run {

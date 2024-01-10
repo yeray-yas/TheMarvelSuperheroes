@@ -1,5 +1,5 @@
 package com.yeray_yas.marvelsuperheroes.domain.model
 
-data class Character (
-    val data: Data
+data class Data(
+    val results: List<CharacterData>,
 )
