@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.superheroes.list.MainActivity"
+            android:name=".presentation.superheroes.detail.MainActivity"
             android:exported="false">
            <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

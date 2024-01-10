@@ -1,4 +1,4 @@
-package com.yeray_yas.marvelsuperheroes.presentation.superheroes.detail
+package com.yeray_yas.marvelsuperheroes.ui.epoxy
 
 import com.airbnb.epoxy.EpoxyController
 import com.squareup.picasso.Picasso
@@ -7,8 +7,6 @@ import com.yeray_yas.marvelsuperheroes.data.model.GetCharacterByIdResponse
 import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterDetailsDataPointBinding
 import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterDetailsHeaderBinding
 import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterDetailsImageBinding
-import com.yeray_yas.marvelsuperheroes.ui.epoxy.LoadingEpoxyModel
-import com.yeray_yas.marvelsuperheroes.ui.epoxy.ViewBindingKotlinModel
 
 class CharacterDetailsEpoxyController: EpoxyController() {
 

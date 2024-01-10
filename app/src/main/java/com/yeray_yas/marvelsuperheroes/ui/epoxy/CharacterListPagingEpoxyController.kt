@@ -10,7 +10,7 @@ import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterListTitleBindin
 import java.util.Locale
 
 class CharacterListPagingEpoxyController(
-    //private val onCharacterSelected: (Int) -> Unit
+    private val onCharacterSelected: (Int) -> Unit
 ) : PagedListEpoxyController<GetCharacterByIdResponse>() {
     override fun buildItemModel(
         currentPosition: Int,
@@ -19,8 +19,12 @@ class CharacterListPagingEpoxyController(
         val image = item?.data?.results?.get(0)?.thumbnail?.run {
             "$path.$extension".takeIf { it.isNotBlank() }
         } ?: ""
-        return CharacterGridItemEpoxyModel(image, item?.data?.results?.get(0)?.name.orEmpty()).id(
-            item!!.data.results[0].id
+        return CharacterGridItemEpoxyModel(
+            characterId = item!!.data.results[0].id,
+            imageUrl = image,
+            name = item.data.results[0].name,
+            onCharacterSelected = onCharacterSelected).id(
+            item.data.results[0].id
         )
     }
 
@@ -51,12 +55,18 @@ class CharacterListPagingEpoxyController(
 
     // Data classes
     data class CharacterGridItemEpoxyModel(
+        val characterId: Int,
         val imageUrl: String,
-        val name: String
+        val name: String,
+        private val onCharacterSelected: (Int) -> Unit
     ) : ViewBindingKotlinModel<ModelCharacterListItemBinding>(R.layout.model_character_list_item) {
         override fun ModelCharacterListItemBinding.bind() {
             Picasso.get().load(imageUrl).into(characterImageView)
             characterNameTextView.text = name
+
+            root.setOnClickListener {
+                onCharacterSelected(characterId)
+            }
         }
     }
 

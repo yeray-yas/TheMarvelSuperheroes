@@ -1,11 +1,13 @@
-package com.yeray_yas.marvelsuperheroes.presentation.superheroes.list
+package com.yeray_yas.marvelsuperheroes.presentation.superheroes.detail
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.yeray_yas.marvelsuperheroes.databinding.ActivityMainBinding
-import com.yeray_yas.marvelsuperheroes.presentation.superheroes.detail.CharacterDetailsEpoxyController
+import com.yeray_yas.marvelsuperheroes.ui.epoxy.CharacterDetailsEpoxyController
+import com.yeray_yas.utils.Constants.INTENT_EXTRA_CHARACTER_ID
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewModel.characterByIdLiveData.observe(this) { response ->
             epoxyController.characterResponse = response
@@ -29,7 +31,9 @@ class MainActivity : AppCompatActivity() {
                 return@observe
             }
         }
-        viewModel.refreshCharacter(1017100)
+
+        val id = intent.getIntExtra(INTENT_EXTRA_CHARACTER_ID, 0)
+        viewModel.refreshCharacter(characterId = id)
 
         binding.epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
 
@@ -40,5 +44,16 @@ class MainActivity : AppCompatActivity() {
         val hash = hashSetting.generateHash(ts, publicKey, privateKey)
         val url = "https://gateway.marvel.com/v1/public/characters/1011334?apikey=$publicKey&hash=$hash&ts=$ts"
         println(url)*/
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

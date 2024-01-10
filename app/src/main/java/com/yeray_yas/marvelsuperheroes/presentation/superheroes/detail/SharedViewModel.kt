@@ -1,4 +1,4 @@
-package com.yeray_yas.marvelsuperheroes.presentation.superheroes.list
+package com.yeray_yas.marvelsuperheroes.presentation.superheroes.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
