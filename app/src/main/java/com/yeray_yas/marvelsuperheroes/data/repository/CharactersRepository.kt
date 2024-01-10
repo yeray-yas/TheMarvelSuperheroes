@@ -1,6 +1,6 @@
 package com.yeray_yas.marvelsuperheroes.data.repository
 
-import com.yeray_yas.marvelsuperheroes.data.model.GetCharactersPageResponse
+import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharactersPageResponse
 import com.yeray_yas.marvelsuperheroes.data.network.remote.ApiClient
 
 class CharactersRepository(private val apiClient: ApiClient) {

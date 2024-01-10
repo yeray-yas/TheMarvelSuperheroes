@@ -1,6 +1,6 @@
-package com.yeray_yas.marvelsuperheroes.data.model
+package com.yeray_yas.marvelsuperheroes.data.network.response.characterRest
 
-data class Series(
+data class Comics(
     val available: Int,
     val collectionURI: String,
     val items: List<Item>,

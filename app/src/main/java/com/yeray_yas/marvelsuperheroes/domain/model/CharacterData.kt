@@ -1,11 +1,11 @@
 package com.yeray_yas.marvelsuperheroes.domain.model
 
-import com.yeray_yas.marvelsuperheroes.data.model.Comics
-import com.yeray_yas.marvelsuperheroes.data.model.Events
-import com.yeray_yas.marvelsuperheroes.data.model.Series
-import com.yeray_yas.marvelsuperheroes.data.model.Stories
-import com.yeray_yas.marvelsuperheroes.data.model.Thumbnail
-import com.yeray_yas.marvelsuperheroes.data.model.Url
+import com.yeray_yas.marvelsuperheroes.data.network.response.characterRest.Comics
+import com.yeray_yas.marvelsuperheroes.data.network.response.characterRest.Events
+import com.yeray_yas.marvelsuperheroes.data.network.response.characterRest.Series
+import com.yeray_yas.marvelsuperheroes.data.network.response.characterRest.Stories
+import com.yeray_yas.marvelsuperheroes.data.network.response.characterRest.Thumbnail
+import com.yeray_yas.marvelsuperheroes.data.network.response.characterRest.Url
 
 data class CharacterData(
     val comics: Comics,

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.yeray_yas.marvelsuperheroes.data.model.GetCharacterByIdResponse
+import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharacterByIdResponse
 import com.yeray_yas.marvelsuperheroes.data.network.remote.ApiClient
 import com.yeray_yas.marvelsuperheroes.data.network.remote.NetworkLayer
 import com.yeray_yas.marvelsuperheroes.data.pagination.CharactersDataSourceFactory

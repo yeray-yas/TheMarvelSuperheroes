@@ -1,4 +1,6 @@
-package com.yeray_yas.marvelsuperheroes.data.model
+package com.yeray_yas.marvelsuperheroes.data.network.response
+
+import com.yeray_yas.marvelsuperheroes.data.network.response.characterRest.Data
 
 data class GetCharacterByIdResponse(
     val attributionHTML: String,

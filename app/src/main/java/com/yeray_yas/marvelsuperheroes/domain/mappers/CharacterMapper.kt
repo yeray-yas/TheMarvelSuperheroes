@@ -1,6 +1,6 @@
 package com.yeray_yas.marvelsuperheroes.domain.mappers
 
-import com.yeray_yas.marvelsuperheroes.data.model.GetCharacterByIdResponse
+import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharacterByIdResponse
 import com.yeray_yas.marvelsuperheroes.domain.model.Character
 import com.yeray_yas.marvelsuperheroes.domain.model.CharacterData
 import com.yeray_yas.marvelsuperheroes.domain.model.Data

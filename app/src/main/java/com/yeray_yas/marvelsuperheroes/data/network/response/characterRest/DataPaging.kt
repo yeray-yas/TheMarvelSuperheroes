@@ -1,4 +1,4 @@
-package com.yeray_yas.marvelsuperheroes.data.model
+package com.yeray_yas.marvelsuperheroes.data.network.response.characterRest
 
 data class DataPaging(
     val count: Int,

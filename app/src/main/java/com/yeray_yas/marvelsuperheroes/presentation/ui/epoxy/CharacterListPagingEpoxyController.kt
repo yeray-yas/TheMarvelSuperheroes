@@ -4,7 +4,7 @@ import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging.PagedListEpoxyController
 import com.squareup.picasso.Picasso
 import com.yeray_yas.marvelsuperheroes.R
-import com.yeray_yas.marvelsuperheroes.data.model.GetCharacterByIdResponse
+import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharacterByIdResponse
 import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterListItemBinding
 import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterListTitleBinding
 import java.util.Locale

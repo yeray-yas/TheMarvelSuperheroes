@@ -1,8 +1,8 @@
 package com.yeray_yas.marvelsuperheroes.domain.mappers
 
-import com.yeray_yas.marvelsuperheroes.data.model.CharacterData
-import com.yeray_yas.marvelsuperheroes.data.model.Data
-import com.yeray_yas.marvelsuperheroes.data.model.GetCharacterByIdResponse
+import com.yeray_yas.marvelsuperheroes.data.network.response.characterRest.CharacterData
+import com.yeray_yas.marvelsuperheroes.data.network.response.characterRest.Data
+import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharacterByIdResponse
 
 object CharacterDataMapper {
 
