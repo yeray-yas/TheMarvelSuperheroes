@@ -1,4 +1,4 @@
-package com.yeray_yas.marvelsuperheroes.ui.epoxy
+package com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy
 
 import android.view.View
 import androidx.annotation.LayoutRes

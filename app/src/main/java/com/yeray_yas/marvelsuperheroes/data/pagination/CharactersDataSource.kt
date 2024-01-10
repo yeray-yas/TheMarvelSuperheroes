@@ -3,7 +3,7 @@ package com.yeray_yas.marvelsuperheroes.data.pagination
 import androidx.paging.PageKeyedDataSource
 import com.yeray_yas.marvelsuperheroes.data.model.GetCharacterByIdResponse
 import com.yeray_yas.marvelsuperheroes.data.repository.CharactersRepository
-import com.yeray_yas.utils.toGetCharacterByIdResponse
+import com.yeray_yas.marvelsuperheroes.utils.toGetCharacterByIdResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

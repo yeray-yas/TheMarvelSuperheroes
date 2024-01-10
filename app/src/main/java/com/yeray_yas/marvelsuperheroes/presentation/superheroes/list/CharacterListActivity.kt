@@ -6,8 +6,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.yeray_yas.marvelsuperheroes.databinding.ActivityCharacterListBinding
 import com.yeray_yas.marvelsuperheroes.presentation.superheroes.detail.MainActivity
-import com.yeray_yas.marvelsuperheroes.ui.epoxy.CharacterListPagingEpoxyController
-import com.yeray_yas.utils.Constants.INTENT_EXTRA_CHARACTER_ID
+import com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy.CharacterListPagingEpoxyController
+import com.yeray_yas.marvelsuperheroes.utils.Constants.INTENT_EXTRA_CHARACTER_ID
 
 class CharacterListActivity : AppCompatActivity() {
 

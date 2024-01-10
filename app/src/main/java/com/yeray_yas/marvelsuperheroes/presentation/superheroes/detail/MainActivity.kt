@@ -6,8 +6,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.yeray_yas.marvelsuperheroes.databinding.ActivityMainBinding
-import com.yeray_yas.marvelsuperheroes.ui.epoxy.CharacterDetailsEpoxyController
-import com.yeray_yas.utils.Constants.INTENT_EXTRA_CHARACTER_ID
+import com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy.CharacterDetailsEpoxyController
+import com.yeray_yas.marvelsuperheroes.utils.Constants.INTENT_EXTRA_CHARACTER_ID
 
 class MainActivity : AppCompatActivity() {
 

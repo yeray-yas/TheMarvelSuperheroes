@@ -1,8 +1,7 @@
-package com.yeray_yas.utils
+package com.yeray_yas.marvelsuperheroes.utils
 
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import java.util.Calendar
 
 class Hash {
 

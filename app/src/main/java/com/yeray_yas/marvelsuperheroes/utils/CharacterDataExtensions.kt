@@ -1,4 +1,4 @@
-package com.yeray_yas.utils
+package com.yeray_yas.marvelsuperheroes.utils
 
 import com.yeray_yas.marvelsuperheroes.data.model.CharacterData
 import com.yeray_yas.marvelsuperheroes.data.model.Data

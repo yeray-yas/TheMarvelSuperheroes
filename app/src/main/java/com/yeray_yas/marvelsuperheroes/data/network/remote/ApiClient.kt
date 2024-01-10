@@ -2,7 +2,7 @@ package com.yeray_yas.marvelsuperheroes.data.network.remote
 
 import com.yeray_yas.marvelsuperheroes.data.model.GetCharacterByIdResponse
 import com.yeray_yas.marvelsuperheroes.data.model.GetCharactersPageResponse
-import com.yeray_yas.utils.SimpleResponse
+import com.yeray_yas.marvelsuperheroes.utils.SimpleResponse
 import retrofit2.Response
 
 class ApiClient(val marvelApiService: MarvelApiService) {

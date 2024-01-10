@@ -1,4 +1,4 @@
-package com.yeray_yas.utils
+package com.yeray_yas.marvelsuperheroes.utils
 
 import retrofit2.Response
 

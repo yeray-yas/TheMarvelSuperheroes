@@ -1,4 +1,4 @@
-package com.yeray_yas.marvelsuperheroes.ui.epoxy
+package com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy
 
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging.PagedListEpoxyController
@@ -34,7 +34,7 @@ class CharacterListPagingEpoxyController(
             return
         }
 
-        CharacterGridTitleEpoxyModel("3D-Man")
+        CharacterGridTitleEpoxyModel("3-D Man")
             .id("main_family_header")
             .addTo(this)
 

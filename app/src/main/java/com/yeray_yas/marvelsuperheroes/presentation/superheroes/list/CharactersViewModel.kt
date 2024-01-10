@@ -10,8 +10,8 @@ import com.yeray_yas.marvelsuperheroes.data.network.remote.ApiClient
 import com.yeray_yas.marvelsuperheroes.data.network.remote.NetworkLayer
 import com.yeray_yas.marvelsuperheroes.data.pagination.CharactersDataSourceFactory
 import com.yeray_yas.marvelsuperheroes.data.repository.CharactersRepository
-import com.yeray_yas.utils.Constants.PAGE_SIZE
-import com.yeray_yas.utils.Constants.PREFETCH_DISTANCE
+import com.yeray_yas.marvelsuperheroes.utils.Constants.PAGE_SIZE
+import com.yeray_yas.marvelsuperheroes.utils.Constants.PREFETCH_DISTANCE
 
 class CharactersViewModel: ViewModel() {
 
