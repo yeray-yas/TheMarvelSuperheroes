@@ -25,26 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".presentation.superheroes.list.CharacterListActivity"
-            android:exported="false"
-            android:label="@string/title_activity_character_list"
-            android:theme="@style/Theme.MarvelSuperheroes">
-
-        </activity>
-        <activity
-            android:name=".presentation.superheroes.detail.CharacterDetailsActivity"
-            android:exported="false">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
     </application>
 
 </manifest>

@@ -9,7 +9,7 @@
         android:id="@+id/characterListFragment"
         android:name="com.yeray_yas.marvelsuperheroes.presentation.superheroes.list.CharacterListFragment"
         android:label="Marvel Superheroes"
-        tools:layout="@layout/activity_character_list">
+        tools:layout="@layout/fragment_character_list">
         <action
             android:id="@+id/action_characterListFragment_to_characterDetailFragment"
             app:destination="@id/characterDetailFragment" />
@@ -18,7 +18,7 @@
         android:id="@+id/characterDetailFragment"
         android:name="com.yeray_yas.marvelsuperheroes.presentation.superheroes.detail.CharacterDetailFragment"
         android:label="Superhero details"
-        tools:layout="@layout/activity_character_details">
+        tools:layout="@layout/fragment_character_detail">
 
 
         <argument
