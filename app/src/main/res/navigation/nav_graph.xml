@@ -9,7 +9,7 @@
         android:id="@+id/characterListFragment"
         android:name="com.yeray_yas.marvelsuperheroes.presentation.superheroes.list.CharacterListFragment"
         android:label="fragment_character_list"
-        tools:layout="@layout/activity_character_list" >
+        tools:layout="@layout/activity_character_list">
         <action
             android:id="@+id/action_characterListFragment_to_characterDetailFragment"
             app:destination="@id/characterDetailFragment" />
@@ -18,5 +18,12 @@
         android:id="@+id/characterDetailFragment"
         android:name="com.yeray_yas.marvelsuperheroes.presentation.superheroes.detail.CharacterDetailFragment"
         android:label="fragment_character_detail"
-        tools:layout="@layout/activity_character_details" />
+        tools:layout="@layout/activity_character_details">
+
+
+        <argument
+            android:name="characterId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 </navigation>
