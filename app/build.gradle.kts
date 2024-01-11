@@ -51,6 +51,7 @@ dependencies {
     val coroutinesVersion = "1.7.3"
     val epoxyVersion = "4.4.1"
     val chuckerVersion = "3.4.0"
+    val navVersion = "2.7.6"
 
     //Basic dependencies
     implementation("androidx.core:core-ktx:1.12.0")
@@ -90,6 +91,10 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     debugImplementation("com.github.chuckerteam.chucker:library:$chuckerVersion")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:$chuckerVersion")
+
+    // Jetpack Navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
