@@ -46,8 +46,6 @@ android {
 
 dependencies {
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     val retrofitVersion = "2.9.0"
     val viewModelVersion = "2.6.2"
     val coroutinesVersion = "1.7.3"
@@ -81,11 +79,14 @@ dependencies {
 
     // Epoxy
     implementation("com.airbnb.android:epoxy:$epoxyVersion")
-    kapt("com.airbnb.android:epoxy-processor:$epoxyVersion")
+    kapt("com.airbnb.android:epoxy-processor:$epoxyVersion")// todo change to ksp
     implementation("com.airbnb.android:epoxy-paging:$epoxyVersion")
 
     // Paging
     implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+
+    // Networking
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
