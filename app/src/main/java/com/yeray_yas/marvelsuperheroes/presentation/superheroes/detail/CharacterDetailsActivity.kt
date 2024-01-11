@@ -5,20 +5,20 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.yeray_yas.marvelsuperheroes.databinding.ActivityCharacterDetailBinding
+import com.yeray_yas.marvelsuperheroes.databinding.ActivityCharacterDetailsBinding
 import com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy.CharacterDetailsEpoxyController
 import com.yeray_yas.marvelsuperheroes.utils.Constants.INTENT_EXTRA_CHARACTER_ID
 
-class CharacterDetailActivity : AppCompatActivity() {
+class CharacterDetailsActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityCharacterDetailBinding
+    private lateinit var binding: ActivityCharacterDetailsBinding
 
     private val viewModel: SharedViewModel by viewModels()
 
     private val epoxyController = CharacterDetailsEpoxyController()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCharacterDetailBinding.inflate(layoutInflater)
+        binding = ActivityCharacterDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -26,7 +26,7 @@ class CharacterDetailActivity : AppCompatActivity() {
         viewModel.characterByIdLiveData.observe(this) { character ->
             epoxyController.character = character
             if (character == null) {
-                Toast.makeText(this@CharacterDetailActivity, "Unsuccessful network call!!!", Toast.LENGTH_LONG)
+                Toast.makeText(this@CharacterDetailsActivity, "Unsuccessful network call!!!", Toast.LENGTH_LONG)
                     .show()
                 return@observe
             }

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.yeray_yas.marvelsuperheroes.databinding.ActivityCharacterListBinding
-import com.yeray_yas.marvelsuperheroes.presentation.superheroes.detail.CharacterDetailActivity
+import com.yeray_yas.marvelsuperheroes.presentation.superheroes.detail.CharacterDetailsActivity
 import com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy.CharacterListPagingEpoxyController
 import com.yeray_yas.marvelsuperheroes.utils.Constants.INTENT_EXTRA_CHARACTER_ID
 
@@ -28,7 +28,7 @@ class CharacterListActivity : AppCompatActivity() {
     }
 
     private fun onCharacterSelected(characterId: Int) {
-        val intent = Intent(this, CharacterDetailActivity::class.java)
+        val intent = Intent(this, CharacterDetailsActivity::class.java)
         intent.putExtra(INTENT_EXTRA_CHARACTER_ID, characterId)
         startActivity(intent)
     }

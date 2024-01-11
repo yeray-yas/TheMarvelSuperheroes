@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.jetpack_navigation.NavGraphActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.superheroes.list.CharacterListActivity"
             android:exported="true"
             android:label="@string/title_activity_character_list"
@@ -28,13 +31,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.superheroes.detail.CharacterDetailActivity"
+            android:name=".presentation.superheroes.detail.CharacterDetailsActivity"
             android:exported="false">
-           <!-- <intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
     </application>
 
