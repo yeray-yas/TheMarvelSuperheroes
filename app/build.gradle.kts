@@ -50,6 +50,7 @@ dependencies {
     val viewModelVersion = "2.6.2"
     val coroutinesVersion = "1.7.3"
     val epoxyVersion = "4.4.1"
+    val chuckerVersion = "3.4.0"
 
     //Basic dependencies
     implementation("androidx.core:core-ktx:1.12.0")
@@ -85,8 +86,10 @@ dependencies {
     // Paging
     implementation("androidx.paging:paging-runtime-ktx:3.2.1")
 
-    // Networking
+    // Network debugging
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    debugImplementation("com.github.chuckerteam.chucker:library:$chuckerVersion")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:$chuckerVersion")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
