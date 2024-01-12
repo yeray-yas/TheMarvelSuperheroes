@@ -15,6 +15,10 @@ class ApiClient(val marvelApiService: MarvelApiService) {
         return safeApiCall { marvelApiService.getCharactersPage(limit, offset) }
     }
 
+    suspend fun getCharactersPageByName(nameStartsWith: String, limit: Int, offset: Int): SimpleResponse<GetCharactersPageResponse>{
+        return safeApiCall { marvelApiService.getCharactersPageByName(nameStartsWith, limit, offset) }
+    }
+
     private inline fun <T> safeApiCall(apiCall: () -> Response<T>): SimpleResponse<T> {
         return try {
             SimpleResponse.success(apiCall.invoke())

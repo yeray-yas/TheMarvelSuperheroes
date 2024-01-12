@@ -8,9 +8,15 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.yeray_yas.marvelsuperheroes.R
 import com.yeray_yas.marvelsuperheroes.databinding.FragmentCharacterSearchBinding
+import com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy.CharacterSearchEpoxyController
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@OptIn(ObsoleteCoroutinesApi::class)
 class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
 
     private var _binding: FragmentCharacterSearchBinding? = null
@@ -18,25 +24,32 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
 
     private val viewModel: CharacterSearchViewModel by viewModels()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCharacterSearchBinding.bind(view)
 
+        val epoxyController = CharacterSearchEpoxyController {characterId ->
+            // todo navigate to details page with ID
+        }
 
+        binding.epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
 
         setupSearchView()
 
-        //observeSuperheroesListChanges()
+        observeSuperheroesListChanges(epoxyController)
+
         // todo
     }
 
-    /*    private fun observeSuperheroesListChanges() {
-            lifecycleScope.launch {
-                viewModel.superheroes.collectLatest { pagingData ->
-                    adapter.submitData(pagingData)
-                }
+    private fun observeSuperheroesListChanges(epoxyController: CharacterSearchEpoxyController) {
+        lifecycleScope.launch {
+            viewModel.flow.collectLatest { pagingData ->
+                epoxyController.submitData(pagingData)
             }
-        }*/
+        }
+    }
+
 
     private fun setupSearchView() {
         val searchView = binding.searchView
@@ -46,10 +59,10 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
                 if (query != null) {
 
                     Log.i("THEQUERY", "Has escrito: $query")
-                    /*   lifecycleScope.launch {
-                           viewModel.setSearchQuery(query)
+                       lifecycleScope.launch {
+                           viewModel.submitQuery(query)
                        }
-                       searchView.clearFocus()*/
+                       searchView.clearFocus()
                 }
                 return true
             }
@@ -64,7 +77,7 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
     private fun writeWithPause(newText: String?) {
         val handler = Handler(Looper.getMainLooper())
         val searchRunnable = Runnable {
-            println(newText)
+            viewModel.submitQuery(newText)
         }
         handler.removeCallbacks(searchRunnable)
         handler.postDelayed(searchRunnable, 500L)
