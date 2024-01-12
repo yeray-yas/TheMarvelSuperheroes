@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/characterListFragment"
-    android:title="@string/all_superheroes_text" />
+<item android:title="@string/superheroes_menu_drawer_layout_title">
+    <menu>
+        <group android:checkableBehavior="single">
+            <item
+                android:id="@+id/characterListFragment"
+                android:title="@string/all_superheroes_text"
+                android:icon="@drawable/ic_superhero"/>
+        </group>
+    </menu>
+</item>
 </menu>

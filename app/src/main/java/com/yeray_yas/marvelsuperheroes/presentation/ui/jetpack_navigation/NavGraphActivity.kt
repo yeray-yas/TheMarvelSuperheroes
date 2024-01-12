@@ -36,6 +36,9 @@ class NavGraphActivity : AppCompatActivity() {
         )
 
         navView.setupWithNavController(navController)
+        navView.setCheckedItem(
+            navController.graph.startDestinationId
+        )
 
     }
 
