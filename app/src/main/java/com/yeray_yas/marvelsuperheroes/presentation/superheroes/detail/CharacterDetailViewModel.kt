@@ -9,7 +9,7 @@ import com.yeray_yas.marvelsuperheroes.domain.model.Character
 import com.yeray_yas.marvelsuperheroes.utils.MarvelCache
 import kotlinx.coroutines.launch
 
-class SharedViewModel : ViewModel() {
+class CharacterDetailViewModel : ViewModel() {
 
     private val repository = SharedRepository()
 
@@ -24,6 +24,7 @@ class SharedViewModel : ViewModel() {
             _characterByIdLiveData.postValue(cachedSuperheroCharacter)
             return
         }
+
         // Otherwise, we need to make the network call for the character
         viewModelScope.launch {
             val response = repository.getCharacterById(characterId)

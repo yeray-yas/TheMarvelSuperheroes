@@ -17,7 +17,7 @@ class CharacterDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterDetailBinding
 
-    private val viewModel: SharedViewModel by viewModels()
+    private val viewModel: CharacterDetailViewModel by viewModels()
 
     private val epoxyController = CharacterDetailsEpoxyController()
     private val safeArgs: CharacterDetailFragmentArgs by navArgs()
