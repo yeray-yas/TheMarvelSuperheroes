@@ -1,10 +1,10 @@
 package com.yeray_yas.marvelsuperheroes.data.pagination
 
+import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharacterByIdResponse
 import com.yeray_yas.marvelsuperheroes.data.repository.CharactersRepository
 import com.yeray_yas.marvelsuperheroes.domain.mappers.CharacterDataMapper.toGetCharacterByIdResponse
-//import com.yeray_yas.marvelsuperheroes.utils.toGetCharacterByIdResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -49,20 +49,22 @@ class CharactersDataSource(
         callback: (List<GetCharacterByIdResponse>, Int?) -> Unit
     ) {
         try {
-            val response = repository.getCharactersList(limit = pageSize, offset = page * pageSize)
+            val response = repository.getCharactersPage(limit = pageSize, offset = page * pageSize)
 
-            if (response.code == 200) {
-                val superheroes: List<GetCharacterByIdResponse> = response.data.results.map {
-                    it.toGetCharacterByIdResponse()
+            if (response != null) {
+                if (response.code == 200) {
+                    val superheroes: List<GetCharacterByIdResponse> = response.data.results.map {
+                        it.toGetCharacterByIdResponse()
+                    }
+
+                    val nextKey = if (superheroes.isEmpty()) null else page + 1
+                    callback(superheroes, nextKey)
+                } else {
+                    Log.i("ResponseError", "There's an error with code: ${response.code}")
                 }
-
-                val nextKey = if (superheroes.isEmpty()) null else page + 1
-                callback(superheroes, nextKey)
-            } else {
-                // Handle errors according to your needs or print logs
             }
         } catch (e: Exception) {
-            // Handle errors or print logs
+            Log.e("ExceptionError", "There's an error: ${e.message}")
         }
     }
 }

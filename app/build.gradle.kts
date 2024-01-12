@@ -84,6 +84,7 @@ dependencies {
     implementation("com.airbnb.android:epoxy:$epoxyVersion")
     kapt("com.airbnb.android:epoxy-processor:$epoxyVersion")// todo change to ksp
     implementation("com.airbnb.android:epoxy-paging:$epoxyVersion")
+    implementation("com.airbnb.android:epoxy-paging3:$epoxyVersion")
 
     // Paging
     implementation("androidx.paging:paging-runtime-ktx:3.2.1")
