@@ -1,4 +1,4 @@
-package com.yeray_yas.marvelsuperheroes.presentation.superheroes.list
+package com.yeray_yas.marvelsuperheroes.presentation.ui.superheroes.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
