@@ -3,7 +3,6 @@ package com.yeray_yas.marvelsuperheroes.presentation.ui.superheroes.search
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.widget.SearchView
@@ -24,6 +23,9 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
 
     private val viewModel: CharacterSearchViewModel by viewModels()
 
+    private val handler = Handler(Looper.getMainLooper())
+    private var searchRunnable: Runnable? = null
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,12 +41,23 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
 
         observeSuperheroesListChanges(epoxyController)
 
+        observeExceptions(epoxyController)
+
         // todo
+    }
+
+    private fun observeExceptions(epoxyController: CharacterSearchEpoxyController) {
+        viewModel.localExceptionEventLiveData.observe(viewLifecycleOwner) { event ->
+            event.getContent()?.let { localException ->
+                epoxyController.localException = localException
+            }
+        }
     }
 
     private fun observeSuperheroesListChanges(epoxyController: CharacterSearchEpoxyController) {
         lifecycleScope.launch {
             viewModel.flow.collectLatest { pagingData ->
+                epoxyController.localException = null
                 epoxyController.submitData(pagingData)
             }
         }
@@ -56,14 +69,10 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) {
-
-                    Log.i("THEQUERY", "Has escrito: $query")
                        lifecycleScope.launch {
                            viewModel.submitQuery(query)
                        }
                        searchView.clearFocus()
-                }
                 return true
             }
 
@@ -75,12 +84,15 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
     }
 
     private fun writeWithPause(newText: String?) {
-        val handler = Handler(Looper.getMainLooper())
-        val searchRunnable = Runnable {
-            viewModel.submitQuery(newText)
+        searchRunnable?.let { handler.removeCallbacks(it) } // Elimina el Runnable anterior antes de programar uno nuevo.
+
+        searchRunnable = Runnable {
+            lifecycleScope.launch {
+                viewModel.submitQuery(newText)
+            }
         }
-        handler.removeCallbacks(searchRunnable)
-        handler.postDelayed(searchRunnable, 500L)
+
+        handler.postDelayed(searchRunnable!!, 500L) // Programa el nuevo Runnable después de 500 ms.
     }
 
     override fun onDestroyView() {

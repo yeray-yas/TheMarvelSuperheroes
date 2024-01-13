@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharacterByIdResponse
-import com.yeray_yas.marvelsuperheroes.data.pagination.CharactersDataSourceFactory
+import com.yeray_yas.marvelsuperheroes.data.pagination.character.list.CharactersDataSourceFactory
 import com.yeray_yas.marvelsuperheroes.data.repository.CharactersRepository
 import com.yeray_yas.marvelsuperheroes.utils.Constants.PAGE_SIZE
 import com.yeray_yas.marvelsuperheroes.utils.Constants.PREFETCH_DISTANCE

@@ -8,7 +8,7 @@ import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterListItemBinding
 import com.yeray_yas.marvelsuperheroes.databinding.ModelLocalExceptionErrorStateBinding
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import com.yeray_yas.marvelsuperheroes.domain.model.Character
-import com.yeray_yas.marvelsuperheroes.presentation.ui.superheroes.search.CharacterSearchPagingSource
+import com.yeray_yas.marvelsuperheroes.data.pagination.character.search.CharacterSearchPagingSource
 
 @ObsoleteCoroutinesApi
 class CharacterSearchEpoxyController(
@@ -19,7 +19,7 @@ class CharacterSearchEpoxyController(
         set(value) {
             field = value
             if (localException != null) {
-                /*requestForcedModelBuild()*/
+                requestModelBuild()
             }
         }
 

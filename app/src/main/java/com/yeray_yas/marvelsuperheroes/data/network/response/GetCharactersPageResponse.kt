@@ -4,5 +4,6 @@ import com.yeray_yas.marvelsuperheroes.data.network.response.characterRest.DataP
 
 data class GetCharactersPageResponse(
     val code: Int,
-    val data: DataPaging
+    val data: DataPaging,
+    val status: String
 )

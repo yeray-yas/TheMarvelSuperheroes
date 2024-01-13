@@ -1,4 +1,4 @@
-package com.yeray_yas.marvelsuperheroes.data.pagination
+package com.yeray_yas.marvelsuperheroes.data.pagination.character.list
 
 import androidx.paging.DataSource
 import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharacterByIdResponse

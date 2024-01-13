@@ -1,4 +1,4 @@
-package com.yeray_yas.marvelsuperheroes.data.pagination
+package com.yeray_yas.marvelsuperheroes.data.pagination.character.list
 
 import android.util.Log
 import androidx.paging.PageKeyedDataSource
@@ -40,7 +40,7 @@ class CharactersDataSource(
         params: LoadParams<Int>,
         callback: LoadCallback<Int, GetCharacterByIdResponse>
     ) {
-        // Not needed for your use case
+        // Not needed
     }
 
     private suspend fun fetchData(

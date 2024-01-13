@@ -1,28 +1,31 @@
 package com.yeray_yas.marvelsuperheroes.presentation.ui.superheroes.search
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.yeray_yas.marvelsuperheroes.domain.model.Character
+import com.yeray_yas.marvelsuperheroes.data.pagination.character.search.CharacterSearchPagingSource
 import com.yeray_yas.marvelsuperheroes.utils.Constants.PAGE_SIZE
 import com.yeray_yas.marvelsuperheroes.utils.Constants.PREFETCH_DISTANCE
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flatMapLatest
+import com.yeray_yas.marvelsuperheroes.utils.Event
 
 class CharacterSearchViewModel : ViewModel() {
-    /*private val _searchQuery = MutableStateFlow("")*/
+
     private var currentUserSearch: String? = ""
+
     private var pagingSource: CharacterSearchPagingSource? = null
         get() {
             if (field == null || field?.invalid == true){
-                field = currentUserSearch?.let { CharacterSearchPagingSource(it) }
+                field = currentUserSearch?.let {
+                    CharacterSearchPagingSource(it){ localException ->
+                        // Notify our LiveData of an issue from the PagingSource
+                       _localExceptionEventLiveData.postValue(Event(localException))
+                    }
+                }
             }
-
             return field
         }
 
@@ -38,24 +41,12 @@ class CharacterSearchViewModel : ViewModel() {
         pagingSource!!
     }.flow.cachedIn(viewModelScope)
 
+    // For error handling propagation
+    private val _localExceptionEventLiveData = MutableLiveData<Event<CharacterSearchPagingSource.LocalException>>()
+    val localExceptionEventLiveData: LiveData<Event<CharacterSearchPagingSource.LocalException>> = _localExceptionEventLiveData
+
     fun submitQuery(userSearch: String?) {
         currentUserSearch = userSearch
         pagingSource?.invalidate()
     }
-
-    /*    @OptIn(ExperimentalCoroutinesApi::class)
-        private val searchSuperheroes: Flow<PagingData<Character>> = _searchQuery
-            .flatMapLatest { query ->
-                if (query.isBlank()) {
-                    *//*getSuperheroesUseCase.execute()*//*
-            } else {
-               *//* searchSuperheroesUseCase.execute(query)*//*
-            }
-        }
-        .cachedIn(viewModelScope)
-    val superheroes: Flow<PagingData<Character>> = searchSuperheroes
-    suspend fun setSearchQuery(query: String) {
-        _searchQuery.emit(query)
-    }*/
-    // TODO: Implement the ViewModel
 }
