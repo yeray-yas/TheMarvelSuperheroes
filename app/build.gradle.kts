@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 // Epoxy
@@ -62,6 +64,12 @@ dependencies {
 
     //Firebase
     implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
+    //  Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
+
+
 
     // Retrofit2
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
