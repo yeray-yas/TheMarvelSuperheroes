@@ -25,9 +25,11 @@ class AuthFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Analytics Events
+        val analytics = FirebaseAnalytics.getInstance(requireContext())
         val bundle = Bundle()
         bundle.putString("message", "Firebase integration complete")
-        context?.let { FirebaseAnalytics.getInstance(it) }?.logEvent("InitScreeeen", bundle)
+        analytics.logEvent("InitScreen", bundle)
+
 
         //Setup
         //setup()
