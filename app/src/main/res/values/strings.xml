@@ -45,4 +45,29 @@
     <string name="all_superheroes_text">All Superheroes</string>
     <string name="superheroes_menu_drawer_layout_title">Superheroes</string>
     <string name="search_characters_text">Search Characters</string>
+
+    <!--Firebase-->
+    <string name="email">email</string>
+    <string name="your_pass">your pass</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login">Login</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="email_text">Email text</string>
+    <string name="provider_text">Provider text</string>
+    <string name="log_out">Log out</string>
+    <string name="facebook_app_id">6107308719392044</string>
+    <string name="fb_login_protocol_scheme">fb6107308719392044</string>
+    <string name="facebook_client_token">daf534a80289f74ded4c077fddae158d</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="authentication_text">Authentication</string>
+
+    <!--Pantalla Home-->
+    <string name="force_error">Force error</string>
+    <string name="calle_numero_piso">Calle, número, piso</string>
+    <string name="telefono">Teléfono</string>
+    <string name="save">Save</string>
+    <string name="load">Load</string>
+    <string name="erase">Erase</string>
+    <string name="get">Get</string>
 </resources>

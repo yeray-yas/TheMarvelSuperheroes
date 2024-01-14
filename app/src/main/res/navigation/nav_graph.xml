@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/characterListFragment">
+    app:startDestination="@id/authFragment">
 
     <fragment
         android:id="@+id/characterListFragment"
@@ -37,4 +37,18 @@
         android:id="@+id/characterSearchFragment"
         android:name="com.yeray_yas.marvelsuperheroes.presentation.ui.superheroes.search.CharacterSearchFragment"
         android:label="Search" />
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.yeray_yas.marvelsuperheroes.AuthFragment"
+        android:label="@string/authentication_text"
+        tools:layout="@layout/fragment_auth" >
+        <action
+            android:id="@+id/action_authFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.yeray_yas.marvelsuperheroes.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
 </navigation>
