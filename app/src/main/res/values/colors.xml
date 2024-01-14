@@ -7,4 +7,5 @@
     <color name="colorAccent">#F57C00</color>
     <color name="background">#ECEFF1</color>
     <color name="superhero_item_name">#8323336C</color>
+    <color name="hint">#BDBDBD</color>
 </resources>

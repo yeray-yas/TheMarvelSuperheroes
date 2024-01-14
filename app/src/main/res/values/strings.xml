@@ -70,4 +70,7 @@
     <string name="load">Load</string>
     <string name="erase">Erase</string>
     <string name="get">Get</string>
+    <string name="error_signing_user_text">"  -- Error registering user--\n\nIs written the email in the correct format?\n\nusername@domain.com"</string>
+    <string name="to_accept_text">Accept</string>
+    <string name="error_title_login_text">Error</string>
 </resources>

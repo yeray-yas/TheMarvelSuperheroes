@@ -26,6 +26,8 @@
             android:layout_height="48dp"
             android:ems="10"
             android:hint="@string/email"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint"
             android:autofillHints="emailAddress"
             android:inputType="textEmailAddress" />
 
@@ -39,6 +41,8 @@
             android:layout_height="48dp"
             android:ems="10"
             android:hint="@string/your_pass"
+            android:textColorHint="@color/hint"
+            android:textColor="@color/black"
             android:autofillHints="password"
             android:inputType="textPassword" />
 

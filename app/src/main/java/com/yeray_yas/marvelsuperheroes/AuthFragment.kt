@@ -2,14 +2,21 @@ package com.yeray_yas.marvelsuperheroes
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.yeray_yas.marvelsuperheroes.databinding.FragmentAuthBinding
+import com.yeray_yas.marvelsuperheroes.presentation.ui.superheroes.list.CharacterListFragmentDirections
+import com.yeray_yas.marvelsuperheroes.utils.firebase.ProviderType
 
 
 class AuthFragment : Fragment() {
@@ -50,9 +57,29 @@ class AuthFragment : Fragment() {
                         .createUserWithEmailAndPassword(mail.toString(), pass.toString())
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
-                                Toast.makeText(requireContext(), "You have signed successfully", Toast.LENGTH_LONG).show()
+                                onLoginOrSignUpSuccess()
                             } else {
                                 showSingInAlert()
+                            }
+                        }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Email and/or password fields are empty",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            loginButton.setOnClickListener {
+                // Toast.makeText(requireContext(), "You have pressed the sign up button", Toast.LENGTH_LONG).show()
+                if (mail.isNotEmpty() && pass.isNotEmpty()) {
+                    FirebaseAuth.getInstance()
+                        .signInWithEmailAndPassword(mail.toString(), pass.toString())
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                onLoginOrSignUpSuccess()
+                            } else {
+                                showLoginAlert()
 
                             }
                         }
@@ -66,16 +93,35 @@ class AuthFragment : Fragment() {
             }
 
 
-
         }
     }
 
     private fun showSingInAlert() {
         val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(getString(R.string.error_title_login_text))
+        builder.setMessage(getString(R.string.error_signing_user_text))
+        builder.setPositiveButton(getString(R.string.to_accept_text), null)
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun showLoginAlert() {
+        val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Error")
-        builder.setMessage("  -- Error registering user--\n\nIs written the email in the correct format?\n\nusername@domain.com")
+        builder.setMessage("Error in mail and/or password")
         builder.setPositiveButton("Accept", null)
         val dialog = builder.create()
         dialog.show()
     }
+
+    private fun onLoginOrSignUpSuccess() {
+        // Limpia la pila de retroceso para que el usuario no pueda volver a la pantalla de inicio de sesión
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.authFragment, true)
+            .build()
+
+        val directions = AuthFragmentDirections.actionAuthFragmentToCharacterListFragment()
+        findNavController().navigate(directions, navOptions)
+    }
+
 }
