@@ -90,7 +90,7 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
             }
         }
 
-        handler.postDelayed(searchRunnable!!, 500L) // Programa el nuevo Runnable después de 500 ms.
+        handler.postDelayed(searchRunnable!!, 300L)
     }
 
     private fun onCharacterSelected(characterId: Int) {
