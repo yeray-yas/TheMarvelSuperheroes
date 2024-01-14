@@ -3,11 +3,12 @@ package com.yeray_yas.marvelsuperheroes.presentation.ui.superheroes.search
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.yeray_yas.marvelsuperheroes.R
 import com.yeray_yas.marvelsuperheroes.databinding.FragmentCharacterSearchBinding
 import com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy.CharacterSearchEpoxyController
@@ -21,6 +22,8 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
     private var _binding: FragmentCharacterSearchBinding? = null
     private val binding get() = _binding!!
 
+    private val epoxyController = CharacterSearchEpoxyController(::onCharacterSelected)
+
     private val viewModel: CharacterSearchViewModel by viewModels()
 
     private val handler = Handler(Looper.getMainLooper())
@@ -31,10 +34,6 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCharacterSearchBinding.bind(view)
 
-        val epoxyController = CharacterSearchEpoxyController {characterId ->
-            // todo navigate to details page with ID
-        }
-
         binding.epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
 
         setupSearchView()
@@ -43,7 +42,6 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
 
         observeExceptions(epoxyController)
 
-        // todo
     }
 
     private fun observeExceptions(epoxyController: CharacterSearchEpoxyController) {
@@ -93,6 +91,13 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
         }
 
         handler.postDelayed(searchRunnable!!, 500L) // Programa el nuevo Runnable después de 500 ms.
+    }
+
+    private fun onCharacterSelected(characterId: Int) {
+        val directions =  CharacterSearchFragmentDirections.actionCharacterSearchFragmentToCharacterDetailFragment2(
+            characterId = characterId
+        )
+        findNavController().navigate(directions)
     }
 
     override fun onDestroyView() {

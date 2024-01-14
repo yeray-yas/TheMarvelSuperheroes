@@ -2,22 +2,16 @@ package com.yeray_yas.marvelsuperheroes
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.yeray_yas.marvelsuperheroes.databinding.FragmentAuthBinding
-import com.yeray_yas.marvelsuperheroes.presentation.ui.superheroes.list.CharacterListFragmentDirections
-import com.yeray_yas.marvelsuperheroes.utils.firebase.ProviderType
-
 
 class AuthFragment : Fragment() {
 
@@ -40,8 +34,6 @@ class AuthFragment : Fragment() {
         bundle.putString("message", "Firebase integration complete")
         analytics.logEvent("InitScreen", bundle)
 
-
-        //Setup
         setup()
     }
 
@@ -51,7 +43,6 @@ class AuthFragment : Fragment() {
             val pass = passwordEditText.text
 
             signUpButton.setOnClickListener {
-                // Toast.makeText(requireContext(), "You have pressed the sign up button", Toast.LENGTH_LONG).show()
                 if (mail.isNotEmpty() && pass.isNotEmpty()) {
                     FirebaseAuth.getInstance()
                         .createUserWithEmailAndPassword(mail.toString(), pass.toString())
@@ -63,11 +54,7 @@ class AuthFragment : Fragment() {
                             }
                         }
                 } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "Email and/or password fields are empty",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    toastMessage("Mail and/or password fields are empty")
                 }
             }
             loginButton.setOnClickListener {
@@ -84,16 +71,18 @@ class AuthFragment : Fragment() {
                             }
                         }
                 } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "Email and/or password fields are empty",
-                        Toast.LENGTH_LONG
-                    ).show()
+                  toastMessage("Email and/or password fields are empty")
                 }
             }
-
-
         }
+    }
+
+    private fun toastMessage(message:String) {
+        Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun showSingInAlert() {
@@ -115,6 +104,7 @@ class AuthFragment : Fragment() {
     }
 
     private fun onLoginOrSignUpSuccess() {
+        toastMessage("Successfully logged")
         // Limpia la pila de retroceso para que el usuario no pueda volver a la pantalla de inicio de sesión
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.authFragment, true)
