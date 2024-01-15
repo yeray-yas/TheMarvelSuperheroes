@@ -11,7 +11,7 @@ import com.yeray_yas.marvelsuperheroes.data.repository.CharactersRepository
 import com.yeray_yas.marvelsuperheroes.utils.Constants.PAGE_SIZE
 import com.yeray_yas.marvelsuperheroes.utils.Constants.PREFETCH_DISTANCE
 
-class CharactersViewModel: ViewModel() {
+class CharacterViewModel: ViewModel() {
     private val repository = CharactersRepository()
 
     private val pageListConfig: PagedList.Config = PagedList.Config.Builder()

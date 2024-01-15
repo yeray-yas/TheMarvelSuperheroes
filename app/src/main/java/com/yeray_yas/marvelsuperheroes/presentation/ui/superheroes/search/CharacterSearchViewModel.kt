@@ -16,13 +16,19 @@ class CharacterSearchViewModel : ViewModel() {
 
     private var currentUserSearch: String? = ""
 
+    // For error handling propagation
+    private val _localExceptionEventLiveData =
+        MutableLiveData<Event<CharacterSearchPagingSource.LocalException>>()
+    val localExceptionEventLiveData: LiveData<Event<CharacterSearchPagingSource.LocalException>> =
+        _localExceptionEventLiveData
+
     private var pagingSource: CharacterSearchPagingSource? = null
         get() {
-            if (field == null || field?.invalid == true){
+            if (field == null || field?.invalid == true) {
                 field = currentUserSearch?.let {
-                    CharacterSearchPagingSource(it){ localException ->
+                    CharacterSearchPagingSource(it) { localException ->
                         // Notify our LiveData of an issue from the PagingSource
-                       _localExceptionEventLiveData.postValue(Event(localException))
+                        _localExceptionEventLiveData.postValue(Event(localException))
                     }
                 }
             }
@@ -30,8 +36,6 @@ class CharacterSearchViewModel : ViewModel() {
         }
 
     val flow = Pager(
-        // Configure how data is loaded by passing additional properties to
-        // PagingConfig, such as prefetchDistance
         PagingConfig(
             pageSize = PAGE_SIZE,
             prefetchDistance = PREFETCH_DISTANCE,
@@ -40,10 +44,6 @@ class CharacterSearchViewModel : ViewModel() {
     ) {
         pagingSource!!
     }.flow.cachedIn(viewModelScope)
-
-    // For error handling propagation
-    private val _localExceptionEventLiveData = MutableLiveData<Event<CharacterSearchPagingSource.LocalException>>()
-    val localExceptionEventLiveData: LiveData<Event<CharacterSearchPagingSource.LocalException>> = _localExceptionEventLiveData
 
     fun submitQuery(userSearch: String?) {
         currentUserSearch = userSearch

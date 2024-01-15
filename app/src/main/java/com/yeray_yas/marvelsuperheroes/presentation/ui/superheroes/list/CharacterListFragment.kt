@@ -15,7 +15,7 @@ class CharacterListFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterListBinding
 
-    private val viewModel: CharactersViewModel by viewModels()
+    private val viewModel: CharacterViewModel by viewModels()
     private val epoxyController = CharacterListPagingEpoxyController(::onCharacterSelected)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +50,7 @@ class CharacterListFragment : Fragment() {
        )
         findNavController().navigate(directions)
     }
+
 
     /*val publicKey = "3de6bbd5de0a40038da2c8fe677fb23b"
      val privateKey = "214c207509b1ed4c5d6456ad38a6ff91f382ead4"

@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.yeray_yas.marvelsuperheroes.AuthFragment"
+        android:name="com.yeray_yas.marvelsuperheroes.presentation.ui.authentication.AuthFragment"
         android:label="@string/authentication_text"
         tools:layout="@layout/fragment_auth" >
 

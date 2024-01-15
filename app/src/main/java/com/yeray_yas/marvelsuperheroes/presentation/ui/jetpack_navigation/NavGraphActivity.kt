@@ -1,8 +1,14 @@
 package com.yeray_yas.marvelsuperheroes.presentation.ui.jetpack_navigation
 
+import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -46,5 +52,14 @@ class NavGraphActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    fun AppCompatActivity.hideKeyboard() {
+        val view = this.currentFocus
+        if (view != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 }

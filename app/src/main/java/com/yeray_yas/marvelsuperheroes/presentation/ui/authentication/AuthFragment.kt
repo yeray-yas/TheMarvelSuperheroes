@@ -1,4 +1,4 @@
-package com.yeray_yas.marvelsuperheroes
+package com.yeray_yas.marvelsuperheroes.presentation.ui.authentication
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
+import com.yeray_yas.marvelsuperheroes.R
 import com.yeray_yas.marvelsuperheroes.databinding.FragmentAuthBinding
 
 class AuthFragment : Fragment() {
@@ -54,7 +55,7 @@ class AuthFragment : Fragment() {
                             }
                         }
                 } else {
-                    toastMessage("Mail and/or password fields are empty")
+                    toastMessage(getString(R.string.email_or_pass_empty_text))
                 }
             }
             loginButton.setOnClickListener {
@@ -71,7 +72,7 @@ class AuthFragment : Fragment() {
                             }
                         }
                 } else {
-                  toastMessage("Email and/or password fields are empty")
+                  toastMessage(getString(R.string.email_or_pass_empty_text))
                 }
             }
         }
