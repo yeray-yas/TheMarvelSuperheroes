@@ -5,7 +5,7 @@ import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharactersPageRe
 import com.yeray_yas.marvelsuperheroes.utils.SimpleResponse
 import retrofit2.Response
 
-class ApiClient(val marvelApiService: MarvelApiService) {
+class ApiClient(private val marvelApiService: MarvelApiService) {
 
     suspend fun getCharacterById(characterId: Int): SimpleResponse<GetCharacterByIdResponse> {
         return safeApiCall { marvelApiService.getCharacterById(characterId) }

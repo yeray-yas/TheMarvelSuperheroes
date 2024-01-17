@@ -41,5 +41,4 @@ object NetworkLayer {
 
         return builder.build()
     }
-
 }

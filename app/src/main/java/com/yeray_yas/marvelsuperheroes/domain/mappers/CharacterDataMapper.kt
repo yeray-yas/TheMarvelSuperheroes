@@ -19,19 +19,6 @@ object CharacterDataMapper {
         )
     }
 
-/*    // Mapeador de CharacterData a Character en la capa de dominio
-    fun CharacterData.toCharacter(): Character {
-        return Character(
-            // Mapea aquí los campos necesarios
-            data = com.yeray_yas.marvelsuperheroes.domain.model.Data(results = listOf(this))
-        )
-    }
-
-    // Otra función si necesitas mapear una lista de CharacterData
-    fun List<CharacterData>.toCharacterList(): List<Character> {
-        return this.map { it.toCharacter() }
-    }*/
-
     fun CharacterData.toCharacter(): Character {
         return Character(
             data = com.yeray_yas.marvelsuperheroes.domain.model.Data(results = listOf(this.toDomain()))

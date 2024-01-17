@@ -1,5 +1,6 @@
 package com.yeray_yas.marvelsuperheroes.presentation.ui.authentication
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.yeray_yas.marvelsuperheroes.R
@@ -35,10 +37,10 @@ class AuthFragment : Fragment() {
         bundle.putString("message", "Firebase integration complete")
         analytics.logEvent("InitScreen", bundle)
 
-        setup()
+        setup(view)
     }
 
-    private fun setup() {
+    private fun setup(view:View) {
         with(binding) {
             val mail = emailEditText.text
             val pass = passwordEditText.text
@@ -49,7 +51,7 @@ class AuthFragment : Fragment() {
                         .createUserWithEmailAndPassword(mail.toString(), pass.toString())
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
-                                onLoginOrSignUpSuccess()
+                                onSignUpSuccess(view)
                             } else {
                                 showSingInAlert()
                             }
@@ -59,13 +61,12 @@ class AuthFragment : Fragment() {
                 }
             }
             loginButton.setOnClickListener {
-                // Toast.makeText(requireContext(), "You have pressed the sign up button", Toast.LENGTH_LONG).show()
                 if (mail.isNotEmpty() && pass.isNotEmpty()) {
                     FirebaseAuth.getInstance()
                         .signInWithEmailAndPassword(mail.toString(), pass.toString())
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
-                                onLoginOrSignUpSuccess()
+                                onLoginSuccess(view)
                             } else {
                                 showLoginAlert()
 
@@ -104,8 +105,19 @@ class AuthFragment : Fragment() {
         dialog.show()
     }
 
-    private fun onLoginOrSignUpSuccess() {
+    private fun onLoginSuccess(view: View) {
         toastMessage("Successfully logged")
+        success(view)
+    }
+
+    private fun onSignUpSuccess(view: View) {
+        toastMessage("Successfully signed up")
+        success(view)
+    }
+
+    @SuppressLint("RestrictedApi")
+    private fun success(view: View) {
+        hideKeyboard(view)
         // Limpia la pila de retroceso para que el usuario no pueda volver a la pantalla de inicio de sesión
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.authFragment, true)
