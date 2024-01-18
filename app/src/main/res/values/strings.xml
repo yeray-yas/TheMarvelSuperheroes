@@ -61,6 +61,7 @@
     <string name="facebook_client_token">daf534a80289f74ded4c077fddae158d</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="authentication_text">Authentication</string>
+    <string name="default_web_client_id">845972669344-9654isbl78u044m0hc67paj0q03mf2aa.apps.googleusercontent.com</string>
 
     <!--Pantalla Home-->
     <string name="force_error">Force error</string>
@@ -70,8 +71,10 @@
     <string name="load">Load</string>
     <string name="erase">Erase</string>
     <string name="get">Get</string>
-    <string name="error_signing_user_text">"  -- Error registering user--\n\nIs written the email in the correct format?\n\nusername@domain.com"</string>
+    <string name="error_signing_user_text">"  — Error registering user—\n\nIs written the email in the correct format?\n\nusername@domain.com"</string>
     <string name="to_accept_text">Accept</string>
     <string name="error_title_login_text">Error</string>
     <string name="email_or_pass_empty_text">Email and/or password fields are empty</string>
+    <string name="prefs_file">com.yeray_yas.marvelsuperheroes.PREFERENCE_FILE_KEY</string>
+    <string name="successfully_logged_out_text">Successfully logged out</string>
 </resources>
