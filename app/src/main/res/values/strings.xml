@@ -56,14 +56,18 @@
     <string name="email_text">Email text</string>
     <string name="provider_text">Provider text</string>
     <string name="log_out">Log out</string>
-    <string name="facebook_app_id">6107308719392044</string>
-    <string name="fb_login_protocol_scheme">fb6107308719392044</string>
-    <string name="facebook_client_token">daf534a80289f74ded4c077fddae158d</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="authentication_text">Authentication</string>
     <string name="default_web_client_id">845972669344-9654isbl78u044m0hc67paj0q03mf2aa.apps.googleusercontent.com</string>
 
-    <!--Pantalla Home-->
+    <!--Facebook Firebase-->
+    <string name="facebook_app_id">781925483981019</string>
+    <string name="fb_login_protocol_scheme">fb781925483981019</string>
+    <string name="facebook_client_token">e6466a258d9776e2749c7a16f658e7dc</string>
+
+
+
+    <!--Pantalla Init-->
     <string name="force_error">Force error</string>
     <string name="calle_numero_piso">Calle, número, piso</string>
     <string name="telefono">Teléfono</string>

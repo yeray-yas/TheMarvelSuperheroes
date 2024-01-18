@@ -12,11 +12,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.yeray_yas.marvelsuperheroes.R
@@ -28,6 +34,8 @@ const val GOOGLE_SIGN_IN = 100
 class AuthFragment : Fragment() {
 
     private lateinit var binding: FragmentAuthBinding
+
+    private val callbackManager = CallbackManager.Factory.create()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,13 +69,14 @@ class AuthFragment : Fragment() {
             // Quiere decir que ya tenemos iniciada una sesión en nuestra app
             loggedView()
             onLoggedButtonPressed(view, email, provider)
-            onLogOutButtonPressed()
+            onLogOutButtonPressed(provider)
+
         } else {
             normalView()
         }
     }
 
-    private fun onLogOutButtonPressed() {
+    private fun onLogOutButtonPressed(provider: String) {
         binding.logOutButton.setOnClickListener {
 
             //Erase data
@@ -77,6 +86,10 @@ class AuthFragment : Fragment() {
 
             editPrefs?.clear()
             editPrefs?.apply()
+
+            if (provider == ProviderType.FACEBOOK.name){
+                LoginManager.getInstance().logOut()
+            }
 
             FirebaseAuth.getInstance().signOut()
             toastMessage(getString(R.string.successfully_logged_out_text))
@@ -129,8 +142,7 @@ class AuthFragment : Fragment() {
                             if (it.isSuccessful) {
                                 onSignUpSuccess(
                                     view,
-                                    it.result.user?.email ?: "",
-                                    ProviderType.BASIC
+                                    it.result.user?.email ?: ""
                                 )
                             } else {
                                 showSingInAlert()
@@ -171,6 +183,38 @@ class AuthFragment : Fragment() {
 
                 startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
             }
+
+            facebookButton.setOnClickListener {
+
+                LoginManager.getInstance().logInWithReadPermissions(this@AuthFragment, listOf("email"))
+
+                LoginManager.getInstance().registerCallback(callbackManager,
+                    object : FacebookCallback<LoginResult> {
+                        override fun onCancel() {
+                            // Nothing to do
+                        }
+
+                        override fun onError(error: FacebookException) {
+                            showLoginAlert()
+                        }
+
+                        override fun onSuccess(result: LoginResult) {
+                            result.let { facebookCall ->
+                                val token = facebookCall.accessToken
+                                val credential = FacebookAuthProvider.getCredential(token.token)
+                                FirebaseAuth.getInstance().signInWithCredential(credential)
+                                    .addOnCompleteListener {
+                                        if (it.isSuccessful) {
+                                            onFacebookOrGoogleLoginSuccess()
+                                        } else {
+                                            showLoginAlert()
+                                        }
+                                    }
+                            }
+                        }
+
+                    })
+            }
         }
     }
 
@@ -206,14 +250,14 @@ class AuthFragment : Fragment() {
         success(view)
     }
 
-    private fun onGoogleLoginSuccess() {
+    private fun onFacebookOrGoogleLoginSuccess() {
         toastMessage("Successfully logged")
         success(requireView())
     }
 
-    private fun onSignUpSuccess(view: View, email: String, provider: ProviderType) {
+    private fun onSignUpSuccess(view: View, email: String) {
         toastMessage("Successfully signed up")
-        saveData(email, provider)
+        saveData(email, ProviderType.BASIC)
         success(view)
     }
 
@@ -244,6 +288,7 @@ class AuthFragment : Fragment() {
 
     @Suppress("DEPRECATION")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        callbackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == GOOGLE_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -255,7 +300,7 @@ class AuthFragment : Fragment() {
                     FirebaseAuth.getInstance().signInWithCredential(credential)
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
-                                onGoogleLoginSuccess()
+                                onFacebookOrGoogleLoginSuccess()
                             } else {
                                 showLoginAlert()
                             }
