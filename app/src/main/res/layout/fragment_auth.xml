@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:drawableStart="@mipmap/google"
+            android:drawableLeft="@mipmap/google"
             android:text="@string/google"
             android:textAlignment="textStart"
             android:textColor="@color/colorPrimaryDark" />
@@ -104,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:drawableStart="@mipmap/facebook"
+            android:drawableLeft="@mipmap/facebook"
             android:text="@string/facebook"
             android:textAlignment="textStart"
             android:textColor="@color/colorPrimaryDark" />
