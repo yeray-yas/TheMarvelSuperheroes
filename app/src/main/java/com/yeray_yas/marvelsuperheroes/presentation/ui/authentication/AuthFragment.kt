@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,7 +62,158 @@ class AuthFragment : Fragment() {
 
         setup(view)
         session(view)
+    }
 
+    private fun setup(view: View) {
+        with(binding) {
+            val mail = emailEditText.text
+            val pass = passwordEditText.text
+
+            onSignUpButtonPressed(mail, pass, view)
+
+            onLoginButtonPressed(mail, pass, view)
+
+            onGoogleButtonPressed(this, this@AuthFragment)
+
+            onFacebookButtonPressed()
+        }
+    }
+
+    private fun FragmentAuthBinding.onFacebookButtonPressed() {
+        facebookButton.setOnClickListener {
+            if (!isAuthInProgress) {
+                isAuthInProgress = true
+
+                LoginManager.getInstance().logInWithReadPermissions(
+                    this@AuthFragment,
+                    listOf("email")
+                )
+
+                LoginManager.getInstance().registerCallback(callbackManager,
+                    object : FacebookCallback<LoginResult> {
+                        override fun onCancel() {
+                            isAuthInProgress = false
+                            // Nothing to do
+                        }
+
+                        override fun onError(error: FacebookException) {
+                            isAuthInProgress = false
+                            showLoginAlert()
+                        }
+
+                        override fun onSuccess(result: LoginResult) {
+                            result.let { facebookCall ->
+                                val token = facebookCall.accessToken
+                                val credential =
+                                    FacebookAuthProvider.getCredential(token.token)
+                                FirebaseAuth.getInstance().signInWithCredential(credential)
+                                    .addOnCompleteListener {
+                                        // Activar botones después de la autenticación
+                                        signUpButton.isEnabled = true
+                                        loginButton.isEnabled = true
+
+                                        isAuthInProgress = false
+
+                                        if (it.isSuccessful) {
+                                            onFacebookOrGoogleLoginSuccess()
+                                        } else {
+                                            showLoginAlert()
+                                        }
+                                    }
+                            }
+                        }
+                    })
+            }
+        }
+    }
+
+    private fun onGoogleButtonPressed(
+        fragmentAuthBinding: FragmentAuthBinding,
+        authFragment: AuthFragment
+    ) {
+        fragmentAuthBinding.googleButton.setOnClickListener {
+            if (!isAuthInProgress) {
+                isAuthInProgress = true
+
+                val googleConf =
+                    GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build()
+
+                val googleClient = GoogleSignIn.getClient(requireActivity(), googleConf)
+                googleClient.signOut()
+
+                authFragment.startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
+            }
+        }
+    }
+
+    private fun FragmentAuthBinding.onLoginButtonPressed(
+        mail: Editable,
+        pass: Editable,
+        view: View
+    ) {
+        loginButton.setOnClickListener {
+            if (!isAuthInProgress && mail.isNotEmpty() && pass.isNotEmpty()) {
+                // Disable buttons during authentication
+                signUpButton.isEnabled = false
+                loginButton.isEnabled = false
+
+                FirebaseAuth.getInstance()
+                    .signInWithEmailAndPassword(mail.toString(), pass.toString())
+                    .addOnCompleteListener {
+                        // Enable buttons after authentication
+                        signUpButton.isEnabled = true
+                        loginButton.isEnabled = true
+
+                        if (it.isSuccessful) {
+                            onLoginSuccess(
+                                view,
+                                it.result.user?.email ?: "",
+                                ProviderType.BASIC
+                            )
+                        } else {
+                            showLoginAlert()
+                        }
+                    }
+            } else {
+                toastMessage(getString(R.string.email_or_pass_empty_text))
+            }
+        }
+    }
+
+    private fun FragmentAuthBinding.onSignUpButtonPressed(
+        mail: Editable,
+        pass: Editable,
+        view: View
+    ) {
+        signUpButton.setOnClickListener {
+            if (!isAuthInProgress && mail.isNotEmpty() && pass.isNotEmpty()) {
+                // Disable buttons during authentication
+                signUpButton.isEnabled = false
+                loginButton.isEnabled = false
+
+                FirebaseAuth.getInstance()
+                    .createUserWithEmailAndPassword(mail.toString(), pass.toString())
+                    .addOnCompleteListener {
+                        // Enable buttons after authentication
+                        signUpButton.isEnabled = true
+                        loginButton.isEnabled = true
+
+                        if (it.isSuccessful) {
+                            onSignUpSuccess(
+                                view,
+                                it.result.user?.email ?: ""
+                            )
+                        } else {
+                            showSingInAlert()
+                        }
+                    }
+            } else {
+                toastMessage(getString(R.string.email_or_pass_empty_text))
+            }
+        }
     }
 
     private fun session(view: View) {
@@ -71,12 +223,13 @@ class AuthFragment : Fragment() {
         val provider = prefs?.getString("provider", null)
 
         if (email != null && provider != null) {
-            // Quiere decir que ya tenemos iniciada una sesión en nuestra app
+           // Switch to another view
             loggedView()
             onLoggedButtonPressed(view, email, provider)
             onLogOutButtonPressed(provider)
 
         } else {
+            // Switch to another view
             normalView()
         }
     }
@@ -140,8 +293,6 @@ class AuthFragment : Fragment() {
             facebookButton.isEnabled = false
             googleButton.isEnabled = false
 
-
-            // Aplicar filtro de desaturación (escala de grises)
             facebookButton.setCompoundDrawablesWithIntrinsicBounds(
                 R.mipmap.facebook_gray, //left
                 0, //top
@@ -178,132 +329,6 @@ class AuthFragment : Fragment() {
             val defaultColor = ContextCompat.getColor(requireContext(), R.color.white)
             facebookButton.backgroundTintList = ColorStateList.valueOf(defaultColor)
             googleButton.backgroundTintList = ColorStateList.valueOf(defaultColor)
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    private fun setup(view: View) {
-        with(binding) {
-            val mail = emailEditText.text
-            val pass = passwordEditText.text
-
-            signUpButton.setOnClickListener {
-                if (!isAuthInProgress && mail.isNotEmpty() && pass.isNotEmpty()) {
-                    // Disable buttons during authentication
-                    signUpButton.isEnabled = false
-                    loginButton.isEnabled = false
-
-                    FirebaseAuth.getInstance()
-                        .createUserWithEmailAndPassword(mail.toString(), pass.toString())
-                        .addOnCompleteListener {
-                            // Enable buttons after authentication
-                            signUpButton.isEnabled = true
-                            loginButton.isEnabled = true
-
-                            if (it.isSuccessful) {
-                                onSignUpSuccess(
-                                    view,
-                                    it.result.user?.email ?: ""
-                                )
-                            } else {
-                                showSingInAlert()
-                            }
-                        }
-                } else {
-                    toastMessage(getString(R.string.email_or_pass_empty_text))
-                }
-            }
-
-            loginButton.setOnClickListener {
-                if (!isAuthInProgress && mail.isNotEmpty() && pass.isNotEmpty()) {
-                    // Desactivar botones durante la autenticación
-                    signUpButton.isEnabled = false
-                    loginButton.isEnabled = false
-
-                    FirebaseAuth.getInstance()
-                        .signInWithEmailAndPassword(mail.toString(), pass.toString())
-                        .addOnCompleteListener {
-                            // Activar botones después de la autenticación
-                            signUpButton.isEnabled = true
-                            loginButton.isEnabled = true
-
-                            if (it.isSuccessful) {
-                                onLoginSuccess(
-                                    view,
-                                    it.result.user?.email ?: "",
-                                    ProviderType.BASIC
-                                )
-                            } else {
-                                showLoginAlert()
-                            }
-                        }
-                } else {
-                    toastMessage(getString(R.string.email_or_pass_empty_text))
-                }
-            }
-
-            googleButton.setOnClickListener {
-                if (!isAuthInProgress) {
-                    isAuthInProgress = true
-
-                    val googleConf =
-                        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                            .requestIdToken(getString(R.string.default_web_client_id))
-                            .requestEmail()
-                            .build()
-
-                    val googleClient = GoogleSignIn.getClient(requireActivity(), googleConf)
-                    googleClient.signOut()
-
-                    startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
-                }
-            }
-
-            facebookButton.setOnClickListener {
-                if (!isAuthInProgress) {
-                    isAuthInProgress = true
-
-                    LoginManager.getInstance().logInWithReadPermissions(
-                        this@AuthFragment,
-                        listOf("email")
-                    )
-
-                    LoginManager.getInstance().registerCallback(callbackManager,
-                        object : FacebookCallback<LoginResult> {
-                            override fun onCancel() {
-                                isAuthInProgress = false
-                                // Nothing to do
-                            }
-
-                            override fun onError(error: FacebookException) {
-                                isAuthInProgress = false
-                                showLoginAlert()
-                            }
-
-                            override fun onSuccess(result: LoginResult) {
-                                result.let { facebookCall ->
-                                    val token = facebookCall.accessToken
-                                    val credential =
-                                        FacebookAuthProvider.getCredential(token.token)
-                                    FirebaseAuth.getInstance().signInWithCredential(credential)
-                                        .addOnCompleteListener {
-                                            // Activar botones después de la autenticación
-                                            signUpButton.isEnabled = true
-                                            loginButton.isEnabled = true
-
-                                            isAuthInProgress = false
-
-                                            if (it.isSuccessful) {
-                                                onFacebookOrGoogleLoginSuccess()
-                                            } else {
-                                                showLoginAlert()
-                                            }
-                                        }
-                                }
-                            }
-                        })
-                }
-            }
         }
     }
 
