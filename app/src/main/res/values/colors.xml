@@ -8,4 +8,6 @@
     <color name="background">#ECEFF1</color>
     <color name="superhero_item_name">#8323336C</color>
     <color name="hint">#BDBDBD</color>
+    <color name="disabled_button_color">#DC0F0F</color>
+
 </resources>

@@ -108,6 +108,7 @@
             android:text="@string/facebook"
             android:textAlignment="textStart"
             android:textColor="@color/colorPrimaryDark" />
+
     </LinearLayout>
 
     <LinearLayout
