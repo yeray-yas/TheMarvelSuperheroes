@@ -2,13 +2,14 @@ package com.yeray_yas.marvelsuperheroes.data.pagination.character.search
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.yeray_yas.marvelsuperheroes.data.network.remote.NetworkLayer
 import com.yeray_yas.marvelsuperheroes.domain.mappers.CharacterDataMapper.toCharacter
 import com.yeray_yas.marvelsuperheroes.domain.model.Character
 import retrofit2.HttpException
 import java.io.IOException
-import com.yeray_yas.marvelsuperheroes.presentation.ui.jetpack_navigation.NavGraphActivity
+import com.yeray_yas.marvelsuperheroes.utils.Constants.API_KEY
+import com.yeray_yas.marvelsuperheroes.utils.Constants.HASH
+import com.yeray_yas.marvelsuperheroes.utils.Constants.TS
 
 class CharacterSearchPagingSource(
     private val searchQuery: String,
@@ -56,7 +57,10 @@ class CharacterSearchPagingSource(
         val response = NetworkLayer.apiClient.getCharactersPageByName(
             nameStartsWith = searchQuery,
             limit = limit,
-            offset = offset
+            offset = offset,
+            apiKey = API_KEY,
+            hash = HASH,
+            ts = TS
         )
 
         if (response.body.data.offset == 0 && response.body.data.limit == 60 && response.body.data.total == 0) {

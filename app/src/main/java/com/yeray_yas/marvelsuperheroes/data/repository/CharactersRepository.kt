@@ -8,10 +8,12 @@ import com.yeray_yas.marvelsuperheroes.utils.MarvelCache
 
 class CharactersRepository() {
 
-    suspend fun getCharactersPage(limit: Int, offset: Int): GetCharactersPageResponse? {
+    suspend fun getCharactersPage(
+        limit: Int, offset: Int
+    ): GetCharactersPageResponse? {
         val request = NetworkLayer.apiClient.getCharactersPage(limit, offset)
 
-        if (request.failed || !request.isSuccessful){
+        if (request.failed || !request.isSuccessful) {
             return null
         }
         return request.body

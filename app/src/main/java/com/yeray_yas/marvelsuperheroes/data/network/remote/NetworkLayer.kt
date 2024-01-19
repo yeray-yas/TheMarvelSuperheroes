@@ -3,13 +3,13 @@ package com.yeray_yas.marvelsuperheroes.data.network.remote
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.yeray_yas.marvelsuperheroes.MarvelSuperheroesApp
+import com.yeray_yas.marvelsuperheroes.utils.Constants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkLayer {
-    private const val BASE_URL = "https://gateway.marvel.com/"
 
 
     private val retrofit: Retrofit = Retrofit.Builder()

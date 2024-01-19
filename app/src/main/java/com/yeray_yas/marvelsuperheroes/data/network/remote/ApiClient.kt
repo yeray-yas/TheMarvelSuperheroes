@@ -11,12 +11,31 @@ class ApiClient(private val marvelApiService: MarvelApiService) {
         return safeApiCall { marvelApiService.getCharacterById(characterId) }
     }
 
-    suspend fun getCharactersPage(limit:Int, offset: Int): SimpleResponse<GetCharactersPageResponse> {
+    suspend fun getCharactersPage(
+        limit: Int,
+        offset: Int
+    ): SimpleResponse<GetCharactersPageResponse> {
         return safeApiCall { marvelApiService.getCharactersPage(limit, offset) }
     }
 
-    suspend fun getCharactersPageByName(nameStartsWith: String, limit: Int, offset: Int): SimpleResponse<GetCharactersPageResponse>{
-        return safeApiCall { marvelApiService.getCharactersPageByName(nameStartsWith, limit, offset) }
+    suspend fun getCharactersPageByName(
+        nameStartsWith: String,
+        apiKey: String,
+        hash: String,
+        ts: Long,
+        limit: Int,
+        offset: Int
+    ): SimpleResponse<GetCharactersPageResponse> {
+        return safeApiCall {
+            marvelApiService.getCharactersPageByName(
+                nameStartsWith,
+                apiKey,
+                hash,
+                ts,
+                limit,
+                offset
+            )
+        }
     }
 
     private inline fun <T> safeApiCall(apiCall: () -> Response<T>): SimpleResponse<T> {
