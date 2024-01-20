@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -22,6 +24,21 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+
+//load the values from .properties file
+        val keystoreFile = project.rootProject.file("apikeys.properties")
+        val properties = Properties()
+        properties.load(keystoreFile.inputStream())
+
+        // Devolver una clave vacía en caso de algún problema
+        val PUBLIC_KEY = properties.getProperty("PUBLIC_KEY") ?: ""
+        val PRIVATE_KEY = properties.getProperty("PRIVATE_KEY") ?: ""
+        val BASE_URL = properties.getProperty("BASE_URL") ?: ""
+
+        // Definir los campos en BuildConfig
+        buildConfigField("String", "PUBLIC_KEY", PUBLIC_KEY)
+        buildConfigField("String", "PRIVATE_KEY", PRIVATE_KEY)
+        buildConfigField("String", "BASE_URL", BASE_URL)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
