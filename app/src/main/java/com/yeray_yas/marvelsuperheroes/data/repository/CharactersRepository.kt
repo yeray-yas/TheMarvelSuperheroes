@@ -9,9 +9,12 @@ import com.yeray_yas.marvelsuperheroes.utils.MarvelCache
 class CharactersRepository() {
 
     suspend fun getCharactersPage(
+        apikey: String,
+        hash: String,
+        ts: Long,
         limit: Int, offset: Int
     ): GetCharactersPageResponse? {
-        val request = NetworkLayer.apiClient.getCharactersPage(limit, offset)
+        val request = NetworkLayer.apiClient.getCharactersPage(apikey, hash, ts, limit, offset)
 
         if (request.failed || !request.isSuccessful) {
             return null
@@ -19,7 +22,9 @@ class CharactersRepository() {
         return request.body
     }
 
-    suspend fun getCharacterById(characterId: Int): Character? {
+    suspend fun getCharacterById(
+        characterId: Int
+    ): Character? {
 
         //Check the cache for our character
         val cachedSuperheroCharacter = MarvelCache.characterMap[characterId]

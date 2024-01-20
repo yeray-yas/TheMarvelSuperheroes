@@ -7,15 +7,20 @@ import retrofit2.Response
 
 class ApiClient(private val marvelApiService: MarvelApiService) {
 
-    suspend fun getCharacterById(characterId: Int): SimpleResponse<GetCharacterByIdResponse> {
-        return safeApiCall { marvelApiService.getCharacterById(characterId) }
+    suspend fun getCharacterById(
+        characterId: Int
+    ): SimpleResponse<GetCharacterByIdResponse> {
+        return safeApiCall { marvelApiService.getCharacterById( characterId) }
     }
 
     suspend fun getCharactersPage(
+        apiKey: String,
+        hash: String,
+        ts: Long,
         limit: Int,
         offset: Int
     ): SimpleResponse<GetCharactersPageResponse> {
-        return safeApiCall { marvelApiService.getCharactersPage(limit, offset) }
+        return safeApiCall { marvelApiService.getCharactersPage(apiKey, hash, ts, limit, offset) }
     }
 
     suspend fun getCharactersPageByName(

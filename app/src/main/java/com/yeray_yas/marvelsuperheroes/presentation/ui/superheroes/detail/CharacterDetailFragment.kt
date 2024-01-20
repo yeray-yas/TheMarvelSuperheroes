@@ -43,7 +43,8 @@ class CharacterDetailFragment : Fragment() {
         }
 
 
-        viewModel.refreshCharacter(characterId = safeArgs.characterId)
+        viewModel.refreshCharacter(
+            characterId = safeArgs.characterId)
 
         binding.epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
     }

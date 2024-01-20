@@ -15,7 +15,9 @@ class CharacterDetailViewModel : ViewModel() {
     private val _characterByIdLiveData = MutableLiveData<Character?>()
     val characterByIdLiveData: LiveData<Character?> = _characterByIdLiveData
 
-    fun refreshCharacter(characterId: Int) = viewModelScope.launch {
+    fun refreshCharacter(
+        characterId: Int
+    ) = viewModelScope.launch {
         val character = repository.getCharacterById(characterId)
         _characterByIdLiveData.postValue(character)
     }

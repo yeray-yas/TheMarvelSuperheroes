@@ -5,6 +5,9 @@ import androidx.paging.PageKeyedDataSource
 import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharacterByIdResponse
 import com.yeray_yas.marvelsuperheroes.data.repository.CharactersRepository
 import com.yeray_yas.marvelsuperheroes.domain.mappers.CharacterDataMapper.toGetCharacterByIdResponse
+import com.yeray_yas.marvelsuperheroes.utils.Constants.API_KEY
+import com.yeray_yas.marvelsuperheroes.utils.Constants.HASH
+import com.yeray_yas.marvelsuperheroes.utils.Constants.TS
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -49,7 +52,13 @@ class CharactersDataSource(
         callback: (List<GetCharacterByIdResponse>, Int?) -> Unit
     ) {
         try {
-            val response = repository.getCharactersPage(limit = pageSize, offset = page * pageSize)
+            val response = repository.getCharactersPage(
+                limit = pageSize,
+                offset = page * pageSize,
+                apikey = API_KEY,
+                hash = HASH,
+                ts = TS
+            )
 
             if (response != null) {
                 if (response.code == 200) {

@@ -14,8 +14,11 @@ interface MarvelApiService {
         @Path("id") characterId: Int
     ): Response<GetCharacterByIdResponse>
 
-    @GET("v1/public/characters?apikey=3de6bbd5de0a40038da2c8fe677fb23b&hash=6097df79049f8fd22ccfe4607c4cc884&ts=1704638021653")
+    @GET("v1/public/characters")
     suspend fun getCharactersPage(
+        @Query("apikey") apiKey: String,
+        @Query("hash") hash: String,
+        @Query("ts") ts: Long,
         @Query("limit") limit: Int,
         @Query("offset") offset: Int
     ): Response<GetCharactersPageResponse>
