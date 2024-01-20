@@ -10,7 +10,7 @@ class ApiClient(private val marvelApiService: MarvelApiService) {
     suspend fun getCharacterById(
         characterId: Int
     ): SimpleResponse<GetCharacterByIdResponse> {
-        return safeApiCall { marvelApiService.getCharacterById( characterId) }
+        return safeApiCall { marvelApiService.getCharacterById(characterId) }
     }
 
     suspend fun getCharactersPage(
