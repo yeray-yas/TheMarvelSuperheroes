@@ -29,7 +29,7 @@ class CharacterListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         //Splash
-        Thread.sleep(2000)
+        //Thread.sleep(2000)
         super.onViewCreated(view, savedInstanceState)
 
         // Analytics Events

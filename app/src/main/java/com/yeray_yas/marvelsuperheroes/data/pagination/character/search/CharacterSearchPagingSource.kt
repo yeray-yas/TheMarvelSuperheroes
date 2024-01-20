@@ -10,6 +10,8 @@ import java.io.IOException
 import com.yeray_yas.marvelsuperheroes.utils.Constants.API_KEY
 import com.yeray_yas.marvelsuperheroes.utils.Constants.HASH
 import com.yeray_yas.marvelsuperheroes.utils.Constants.TS
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class CharacterSearchPagingSource(
     private val searchQuery: String,
@@ -54,14 +56,16 @@ class CharacterSearchPagingSource(
         val limit = params.loadSize
         val offset = pageNumber * limit
 
-        val response = NetworkLayer.apiClient.getCharactersPageByName(
-            nameStartsWith = searchQuery,
-            limit = limit,
-            offset = offset,
-            apiKey = API_KEY,
-            hash = HASH,
-            ts = TS
-        )
+        val response = withContext(Dispatchers.IO) {
+            NetworkLayer.apiClient.getCharactersPageByName(
+                nameStartsWith = searchQuery,
+                limit = limit,
+                offset = offset,
+                apiKey = API_KEY,
+                hash = HASH,
+                ts = TS
+            )
+        }
 
         if (response.body.data.offset == 0 && response.body.data.limit == 60 && response.body.data.total == 0) {
             val exception = LocalException.NoResults

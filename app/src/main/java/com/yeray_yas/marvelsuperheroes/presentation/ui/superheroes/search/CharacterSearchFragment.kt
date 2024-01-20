@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.yeray_yas.marvelsuperheroes.R
 import com.yeray_yas.marvelsuperheroes.databinding.FragmentCharacterSearchBinding
 import com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy.CharacterSearchEpoxyController
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -28,6 +29,8 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
 
     private val handler = Handler(Looper.getMainLooper())
     private var searchRunnable: Runnable? = null
+    private var viewModelJob: Job? = null
+    private var searchJob: Job? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +56,7 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
     }
 
     private fun observeSuperheroesListChanges(epoxyController: CharacterSearchEpoxyController) {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.flow.collectLatest { pagingData ->
                 epoxyController.localException = null
                 epoxyController.submitData(pagingData)
@@ -61,16 +64,18 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
         }
     }
 
-
     private fun setupSearchView() {
         val searchView = binding.searchView
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                       lifecycleScope.launch {
-                           viewModel.submitQuery(query)
-                       }
-                       searchView.clearFocus()
+                searchJob?.cancel() // Cancelar la corrutina anterior si aún está en progreso
+
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewModel.submitQuery(query)
+                }
+
+                searchView.clearFocus()
                 return true
             }
 
@@ -81,12 +86,18 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
         })
     }
 
+
     private fun writeWithPause(newText: String?) {
         searchRunnable?.let { handler.removeCallbacks(it) } // Elimina el Runnable anterior antes de programar uno nuevo.
 
         searchRunnable = Runnable {
-            lifecycleScope.launch {
-                viewModel.submitQuery(newText)
+            // Verificar que el texto no sea nulo antes de iniciar la corrutina
+            newText?.let {
+                // Cancelar la corrutina anterior si aún está en progreso
+                viewModelJob?.cancel()
+                viewModelJob = viewLifecycleOwner.lifecycleScope.launch {
+                    viewModel.submitQuery(it)
+                }
             }
         }
 
