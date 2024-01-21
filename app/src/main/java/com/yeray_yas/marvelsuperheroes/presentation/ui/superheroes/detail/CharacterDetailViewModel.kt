@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yeray_yas.marvelsuperheroes.data.repository.CharactersRepository
 import com.yeray_yas.marvelsuperheroes.domain.model.Character
+import com.yeray_yas.marvelsuperheroes.utils.ApiCredentialsManager
 import kotlinx.coroutines.launch
 
 class CharacterDetailViewModel : ViewModel() {
@@ -16,9 +17,12 @@ class CharacterDetailViewModel : ViewModel() {
     val characterByIdLiveData: LiveData<Character?> = _characterByIdLiveData
 
     fun refreshCharacter(
-        characterId: Int
+        characterId: Int,
+        apiKey: String = ApiCredentialsManager.getApiKey(),
+        hash: String = ApiCredentialsManager.getHash(ApiCredentialsManager.getTs()),
+        ts: Long = ApiCredentialsManager.getTs()
     ) = viewModelScope.launch {
-        val character = repository.getCharacterById(characterId)
+        val character = repository.getCharacterById(characterId, apiKey, hash, ts)
         _characterByIdLiveData.postValue(character)
     }
 }

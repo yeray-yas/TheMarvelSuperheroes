@@ -4,9 +4,10 @@ import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharactersPageRe
 import com.yeray_yas.marvelsuperheroes.data.network.remote.NetworkLayer
 import com.yeray_yas.marvelsuperheroes.domain.mappers.CharacterMapper
 import com.yeray_yas.marvelsuperheroes.domain.model.Character
+import com.yeray_yas.marvelsuperheroes.utils.ApiCredentialsManager
 import com.yeray_yas.marvelsuperheroes.utils.MarvelCache
 
-class CharactersRepository() {
+class CharactersRepository {
 
     suspend fun getCharactersPage(
         apikey: String,
@@ -23,7 +24,10 @@ class CharactersRepository() {
     }
 
     suspend fun getCharacterById(
-        characterId: Int
+        characterId: Int,
+        apiKey: String = ApiCredentialsManager.getApiKey(),
+        hash: String = ApiCredentialsManager.getHash(ApiCredentialsManager.getTs()),
+        ts: Long = ApiCredentialsManager.getTs()
     ): Character? {
 
         //Check the cache for our character
@@ -32,7 +36,7 @@ class CharactersRepository() {
             return cachedSuperheroCharacter
         }
 
-        val request = NetworkLayer.apiClient.getCharacterById(characterId)
+        val request = NetworkLayer.apiClient.getCharacterById(characterId, apiKey, hash, ts)
 
         if (request.failed || !request.isSuccessful) {
             return null

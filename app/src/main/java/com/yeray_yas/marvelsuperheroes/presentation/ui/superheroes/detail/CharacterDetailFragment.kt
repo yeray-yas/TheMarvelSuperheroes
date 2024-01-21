@@ -42,21 +42,9 @@ class CharacterDetailFragment : Fragment() {
             }
         }
 
-
         viewModel.refreshCharacter(
             characterId = safeArgs.characterId)
 
         binding.epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
     }
-
-/*    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-    }*/
 }

@@ -4,8 +4,8 @@ import com.yeray_yas.marvelsuperheroes.BuildConfig
 import java.util.Calendar
 
 object Constants {
-    private const val PUBLIC_KEY = BuildConfig.PUBLIC_KEY
-    private const val PRIVATE_KEY = BuildConfig.PRIVATE_KEY
+    const val PUBLIC_KEY = BuildConfig.PUBLIC_KEY
+    const val PRIVATE_KEY = BuildConfig.PRIVATE_KEY
     const val API_KEY = PUBLIC_KEY
     val TS = Calendar.getInstance().timeInMillis
     val HASH = "$TS${PRIVATE_KEY}${PUBLIC_KEY}".md5()
