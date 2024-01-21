@@ -2,7 +2,6 @@ package com.yeray_yas.marvelsuperheroes.data.network.remote
 
 import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharacterByIdResponse
 import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharactersPageResponse
-import com.yeray_yas.marvelsuperheroes.utils.ApiCredentialsManager
 import com.yeray_yas.marvelsuperheroes.utils.SimpleResponse
 import retrofit2.Response
 
@@ -10,9 +9,9 @@ class ApiClient(private val marvelApiService: MarvelApiService) {
 
     suspend fun getCharacterById(
         characterId: Int,
-        apiKey: String = ApiCredentialsManager.getApiKey(),
-        hash: String = ApiCredentialsManager.getHash(ApiCredentialsManager.getTs()),
-        ts: Long = ApiCredentialsManager.getTs()
+        apiKey: String,
+        hash: String,
+        ts: Long
     ): SimpleResponse<GetCharacterByIdResponse> {
         return safeApiCall { marvelApiService.getCharacterById(characterId, apiKey, hash, ts) }
     }

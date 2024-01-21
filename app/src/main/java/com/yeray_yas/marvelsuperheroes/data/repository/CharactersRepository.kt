@@ -4,7 +4,6 @@ import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharactersPageRe
 import com.yeray_yas.marvelsuperheroes.data.network.remote.NetworkLayer
 import com.yeray_yas.marvelsuperheroes.domain.mappers.CharacterMapper
 import com.yeray_yas.marvelsuperheroes.domain.model.Character
-import com.yeray_yas.marvelsuperheroes.utils.ApiCredentialsManager
 import com.yeray_yas.marvelsuperheroes.utils.MarvelCache
 
 class CharactersRepository {
@@ -25,9 +24,9 @@ class CharactersRepository {
 
     suspend fun getCharacterById(
         characterId: Int,
-        apiKey: String = ApiCredentialsManager.getApiKey(),
-        hash: String = ApiCredentialsManager.getHash(ApiCredentialsManager.getTs()),
-        ts: Long = ApiCredentialsManager.getTs()
+        apiKey: String,
+        hash: String,
+        ts: Long
     ): Character? {
 
         //Check the cache for our character

@@ -2,7 +2,6 @@ package com.yeray_yas.marvelsuperheroes.data.network.remote
 
 import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharacterByIdResponse
 import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharactersPageResponse
-import com.yeray_yas.marvelsuperheroes.utils.ApiCredentialsManager
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -13,9 +12,9 @@ interface MarvelApiService {
     @GET("v1/public/characters/{id}")
     suspend fun getCharacterById(
         @Path("id") characterId: Int,
-        @Query("apikey") apiKey: String = ApiCredentialsManager.getApiKey(),
-        @Query("hash") hash: String = ApiCredentialsManager.getHash(ApiCredentialsManager.getTs()),
-        @Query("ts") ts: Long = ApiCredentialsManager.getTs()
+        @Query("apikey") apiKey: String,
+        @Query("hash") hash: String,
+        @Query("ts") ts: Long
     ): Response<GetCharacterByIdResponse>
 
     @GET("v1/public/characters")
