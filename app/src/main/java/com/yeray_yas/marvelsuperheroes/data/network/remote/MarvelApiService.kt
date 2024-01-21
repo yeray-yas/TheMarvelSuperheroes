@@ -32,6 +32,4 @@ interface MarvelApiService {
         @Query("limit") limit: Int,
         @Query("offset") offset: Int
     ): Response<GetCharactersPageResponse>
-
-
 }
