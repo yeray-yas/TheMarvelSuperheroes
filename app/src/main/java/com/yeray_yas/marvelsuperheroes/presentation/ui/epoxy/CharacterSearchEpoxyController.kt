@@ -57,7 +57,12 @@ class CharacterSearchEpoxyController(
     ) : ViewBindingKotlinModel<ModelCharacterListItemBinding>(R.layout.model_character_list_item) {
 
         override fun ModelCharacterListItemBinding.bind() {
-            Picasso.get().load(imageUrl).into(characterImageView)
+            if (imageUrl.contains("image_not_available")) {
+                Picasso.get().load(R.drawable.marvel_image_not_found).into(characterImageView)
+            } else {
+                Picasso.get().load(imageUrl).fit()
+                    .centerCrop().into(characterImageView)
+            }
             characterNameTextView.text = name
 
             root.setOnClickListener {

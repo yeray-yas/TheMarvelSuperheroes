@@ -75,7 +75,11 @@ class CharacterDetailsEpoxyController : EpoxyController() {
     ) : ViewBindingKotlinModel<ModelCharacterDetailsImageBinding>(R.layout.model_character_details_image) {
 
         override fun ModelCharacterDetailsImageBinding.bind() {
-            Picasso.get().load(imageUrl).into(headerImageView)
+            if (imageUrl.contains("image_not_available")) {
+                Picasso.get().load(R.drawable.marvel_image_not_found).into(headerImageView)
+            } else {
+                Picasso.get().load(imageUrl).into(headerImageView)
+            }
         }
     }
 

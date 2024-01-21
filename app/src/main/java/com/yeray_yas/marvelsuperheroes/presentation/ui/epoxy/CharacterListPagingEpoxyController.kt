@@ -9,6 +9,7 @@ import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterListItemBinding
 import com.yeray_yas.marvelsuperheroes.databinding.ModelCharacterListTitleBinding
 import java.util.Locale
 
+@Suppress("UNCHECKED_CAST")
 class CharacterListPagingEpoxyController(
     private val onCharacterSelected: (Int) -> Unit
 ) : PagedListEpoxyController<GetCharacterByIdResponse>() {
@@ -19,6 +20,7 @@ class CharacterListPagingEpoxyController(
         val image = item?.data?.results?.get(0)?.thumbnail?.run {
             "$path.$extension".takeIf { it.isNotBlank() }
         } ?: ""
+
         return CharacterGridItemEpoxyModel(
             characterId = item!!.data.results[0].id,
             imageUrl = image,
@@ -61,7 +63,13 @@ class CharacterListPagingEpoxyController(
         private val onCharacterSelected: (Int) -> Unit
     ) : ViewBindingKotlinModel<ModelCharacterListItemBinding>(R.layout.model_character_list_item) {
         override fun ModelCharacterListItemBinding.bind() {
-            Picasso.get().load(imageUrl).into(characterImageView)
+            if (imageUrl.contains("image_not_available")) {
+                Picasso.get().load(R.drawable.marvel_image_not_found).into(characterImageView)
+            } else {
+                Picasso.get().load(imageUrl).fit()
+                    .centerCrop().into(characterImageView)
+            }
+
             characterNameTextView.text = name
 
             root.setOnClickListener {
