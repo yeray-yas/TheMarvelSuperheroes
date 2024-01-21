@@ -25,12 +25,12 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-//load the values from .properties file
+        //load the values from .properties file
         val keystoreFile = project.rootProject.file("apikeys.properties")
         val properties = Properties()
         properties.load(keystoreFile.inputStream())
 
-        // Devolver una clave vacía en caso de algún problema
+        // Return an empty key in case of any problem
         val PUBLIC_KEY = properties.getProperty("PUBLIC_KEY") ?: ""
         val PRIVATE_KEY = properties.getProperty("PRIVATE_KEY") ?: ""
         val BASE_URL = properties.getProperty("BASE_URL") ?: ""
@@ -73,15 +73,15 @@ dependencies {
     val chuckerVersion = "3.4.0"
     val navVersion = "2.7.6"
 
-    //Basic dependencies
+    // Basic dependencies
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
-    //Firebase
+    // Firebase
     implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
-    //  Firebase BoM
+    // Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics")
