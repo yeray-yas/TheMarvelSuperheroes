@@ -11,7 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkLayer {
 
-
     private val retrofit: Retrofit = Retrofit.Builder()
         .client(getLoggingHttpClient())
         .baseUrl(BASE_URL)
@@ -38,7 +37,6 @@ object NetworkLayer {
                 .alwaysReadResponseBody(false)
                 .build()
         )
-
         return builder.build()
     }
 }
