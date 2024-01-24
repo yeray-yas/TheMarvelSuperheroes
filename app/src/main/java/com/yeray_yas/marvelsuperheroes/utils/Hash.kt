@@ -4,7 +4,6 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
 class Hash {
-
       fun generateHash(ts: Long, publicKey: String, privateKey: String): String {
         val input = "$ts$privateKey$publicKey"
         return try {

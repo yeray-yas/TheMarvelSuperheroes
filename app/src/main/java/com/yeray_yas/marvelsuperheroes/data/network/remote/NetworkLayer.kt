@@ -18,7 +18,7 @@ object NetworkLayer {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val marvelApiService: MarvelApiService by lazy {
+    private val marvelApiService: MarvelApiService by lazy {
         retrofit.create(MarvelApiService::class.java)
     }
 
