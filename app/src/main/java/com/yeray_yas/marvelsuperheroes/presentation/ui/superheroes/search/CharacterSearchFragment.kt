@@ -86,7 +86,6 @@ class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
         })
     }
 
-
     private fun writeWithPause(newText: String?) {
         searchRunnable?.let { handler.removeCallbacks(it) } // Elimina el Runnable anterior antes de programar uno nuevo.
 
