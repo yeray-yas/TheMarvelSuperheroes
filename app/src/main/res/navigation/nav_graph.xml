@@ -36,7 +36,8 @@
     <fragment
         android:id="@+id/characterSearchFragment"
         android:name="com.yeray_yas.marvelsuperheroes.presentation.ui.superheroes.search.CharacterSearchFragment"
-        android:label="Search" >
+        android:label="Search"
+        tools:layout="@layout/fragment_character_search">
         <action
             android:id="@+id/action_characterSearchFragment_to_characterDetailFragment2"
             app:destination="@id/characterDetailFragment" />

@@ -72,6 +72,7 @@ dependencies {
     val epoxyVersion = "4.4.1"
     val chuckerVersion = "3.4.0"
     val navVersion = "2.7.6"
+    val roomVersion = "2.4.0"
 
     // Basic dependencies
     implementation("androidx.core:core-ktx:1.12.0")
@@ -132,6 +133,11 @@ dependencies {
     // Jetpack Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+
+    //Room
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+
 
     // Testing
     testImplementation("junit:junit:4.13.2")
