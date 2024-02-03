@@ -7,6 +7,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("dagger.hilt.android.plugin")
 }
 
 // Epoxy
@@ -31,14 +32,14 @@ android {
         properties.load(keystoreFile.inputStream())
 
         // Return an empty key in case of any problem
-        val PUBLIC_KEY = properties.getProperty("PUBLIC_KEY") ?: ""
-        val PRIVATE_KEY = properties.getProperty("PRIVATE_KEY") ?: ""
-        val BASE_URL = properties.getProperty("BASE_URL") ?: ""
+        val publicKey = properties.getProperty("PUBLIC_KEY") ?: ""
+        val privateKey = properties.getProperty("PRIVATE_KEY") ?: ""
+        val baseUrl = properties.getProperty("BASE_URL") ?: ""
 
         // Definir los campos en BuildConfig
-        buildConfigField("String", "PUBLIC_KEY", PUBLIC_KEY)
-        buildConfigField("String", "PRIVATE_KEY", PRIVATE_KEY)
-        buildConfigField("String", "BASE_URL", BASE_URL)
+        buildConfigField("String", "PUBLIC_KEY", publicKey)
+        buildConfigField("String", "PRIVATE_KEY", privateKey)
+        buildConfigField("String", "BASE_URL", baseUrl)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -73,6 +74,7 @@ dependencies {
     val chuckerVersion = "3.4.0"
     val navVersion = "2.7.6"
     val roomVersion = "2.4.0"
+    val hiltVersion = "2.46.1"
 
     // Basic dependencies
     implementation("androidx.core:core-ktx:1.12.0")
@@ -129,6 +131,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     debugImplementation("com.github.chuckerteam.chucker:library:$chuckerVersion")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:$chuckerVersion")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
     // Jetpack Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
@@ -137,6 +140,10 @@ dependencies {
     //Room
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
+
+    // Dagger Hilt
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
 
 
     // Testing

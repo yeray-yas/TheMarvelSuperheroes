@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.yeray_yas.marvelsuperheroes.databinding.FragmentCharacterListBinding
 import com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy.CharacterListPagingEpoxyController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CharacterListFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterListBinding

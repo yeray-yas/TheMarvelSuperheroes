@@ -12,11 +12,13 @@ import androidx.navigation.fragment.findNavController
 import com.yeray_yas.marvelsuperheroes.R
 import com.yeray_yas.marvelsuperheroes.databinding.FragmentCharacterSearchBinding
 import com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy.CharacterSearchEpoxyController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 @OptIn(ObsoleteCoroutinesApi::class)
 class CharacterSearchFragment : Fragment(R.layout.fragment_character_search) {
 

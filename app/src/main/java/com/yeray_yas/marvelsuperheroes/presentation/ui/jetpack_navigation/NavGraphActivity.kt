@@ -17,7 +17,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NavGraphActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration

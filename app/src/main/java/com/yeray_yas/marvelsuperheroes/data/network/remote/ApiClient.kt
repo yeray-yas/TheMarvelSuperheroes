@@ -4,8 +4,9 @@ import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharacterByIdRes
 import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharactersPageResponse
 import com.yeray_yas.marvelsuperheroes.utils.SimpleResponse
 import retrofit2.Response
+import javax.inject.Inject
 
-class ApiClient(private val marvelApiService: MarvelApiService) {
+class ApiClient @Inject constructor(private val marvelApiService: MarvelApiService) {
 
     suspend fun getCharacterById(
         characterId: Int,

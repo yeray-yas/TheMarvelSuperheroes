@@ -11,8 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yeray_yas.marvelsuperheroes.databinding.FragmentCharacterDetailBinding
 import com.yeray_yas.marvelsuperheroes.presentation.ui.epoxy.CharacterDetailsEpoxyController
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CharacterDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterDetailBinding

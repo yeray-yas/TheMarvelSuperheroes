@@ -1,12 +1,14 @@
 package com.yeray_yas.marvelsuperheroes.data.repository
 
+import com.yeray_yas.marvelsuperheroes.data.network.remote.MarvelApiService
 import com.yeray_yas.marvelsuperheroes.data.network.response.GetCharactersPageResponse
 import com.yeray_yas.marvelsuperheroes.data.network.remote.NetworkLayer
 import com.yeray_yas.marvelsuperheroes.domain.mappers.CharacterMapper
 import com.yeray_yas.marvelsuperheroes.domain.model.Character
 import com.yeray_yas.marvelsuperheroes.utils.MarvelCache
+import javax.inject.Inject
 
-class CharactersRepository {
+class CharactersRepository @Inject constructor(private val fofiClient: MarvelApiService){
 
     suspend fun getCharactersPage(
         apikey: String,

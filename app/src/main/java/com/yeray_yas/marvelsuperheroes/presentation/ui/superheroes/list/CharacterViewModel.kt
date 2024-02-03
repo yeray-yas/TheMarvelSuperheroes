@@ -10,9 +10,11 @@ import com.yeray_yas.marvelsuperheroes.data.pagination.character.list.Characters
 import com.yeray_yas.marvelsuperheroes.data.repository.CharactersRepository
 import com.yeray_yas.marvelsuperheroes.utils.Constants.PAGE_SIZE
 import com.yeray_yas.marvelsuperheroes.utils.Constants.PREFETCH_DISTANCE
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class CharacterViewModel: ViewModel() {
-    private val repository = CharactersRepository()
+@HiltViewModel
+class CharacterViewModel @Inject constructor(private val repository: CharactersRepository): ViewModel() {
 
     private val pageListConfig: PagedList.Config = PagedList.Config.Builder()
         .setPageSize(PAGE_SIZE)

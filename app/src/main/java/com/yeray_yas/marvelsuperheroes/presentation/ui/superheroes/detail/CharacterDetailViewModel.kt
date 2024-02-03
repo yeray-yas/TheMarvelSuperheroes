@@ -7,11 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.yeray_yas.marvelsuperheroes.data.repository.CharactersRepository
 import com.yeray_yas.marvelsuperheroes.domain.model.Character
 import com.yeray_yas.marvelsuperheroes.utils.Constants
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CharacterDetailViewModel : ViewModel() {
-
-    private val repository = CharactersRepository()
+@HiltViewModel
+class CharacterDetailViewModel @Inject constructor(private val repository: CharactersRepository) : ViewModel() {
 
     private val _characterByIdLiveData = MutableLiveData<Character?>()
     val characterByIdLiveData: LiveData<Character?> = _characterByIdLiveData
