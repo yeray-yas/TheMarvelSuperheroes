@@ -12,8 +12,9 @@ import com.yeray_yas.marvelsuperheroes.utils.Constants.HASH
 import com.yeray_yas.marvelsuperheroes.utils.Constants.TS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class CharacterSearchPagingSource(
+class CharacterSearchPagingSource @Inject constructor(
     private val searchQuery: String,
     private val localExceptionCallback: (LocalException) -> Unit
 ) : PagingSource<Int, Character>() {

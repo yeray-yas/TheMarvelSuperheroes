@@ -11,7 +11,9 @@ import com.yeray_yas.marvelsuperheroes.data.pagination.character.search.Characte
 import com.yeray_yas.marvelsuperheroes.utils.Constants.PAGE_SIZE
 import com.yeray_yas.marvelsuperheroes.utils.Constants.PREFETCH_DISTANCE
 import com.yeray_yas.marvelsuperheroes.utils.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 
+@HiltViewModel
 class CharacterSearchViewModel : ViewModel() {
 
     private var currentUserSearch: String? = ""
